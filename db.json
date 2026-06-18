@@ -1,0 +1,1313 @@
+{
+  "products": [
+    {
+      "title": "MacBook Pro 16\" M3 Max",
+      "description": "Ultra-performance laptop with 16-core CPU, 40-core GPU, 48GB unified memory, and 1TB SSD storage.",
+      "price": 3499,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      "discount": 5,
+      "stock": 12,
+      "isNew": true,
+      "specs": [
+        "M3 Max",
+        "48GB RAM",
+        "1TB SSD",
+        "Liquid Retina XDR"
+      ],
+      "id": "1"
+    },
+    {
+      "id": "2",
+      "title": "ROG Strix SCAR 18 Gaming Laptop",
+      "description": "Intel Core i9-14900HX, NVIDIA GeForce RTX 4090, 32GB DDR5, 2TB PCIe SSD, 18-inch 240Hz QHD+ display.",
+      "price": 3899,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 8,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 42,
+      "specs": [
+        "i9-14900HX",
+        "RTX 4090",
+        "32GB RAM",
+        "240Hz Display"
+      ]
+    },
+    {
+      "id": "3",
+      "title": "Razer BlackWidow V4 Pro",
+      "description": "Mechanical gaming keyboard with green switches, per-key RGB, dedicated macro keys, and magnetic wrist rest.",
+      "price": 229,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
+      "discount": 10,
+      "stock": 25,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 89,
+      "specs": [
+        "Green Switches",
+        "RGB Chroma",
+        "Macro Dial",
+        "USB Passthrough"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Vortex Quantum Station PC",
+      "description": "Liquid cooled custom desktop computer featuring AMD Ryzen 9 7950X, 64GB DDR5 RAM, and RTX 4080 Super.",
+      "price": 2899,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 5,
+      "isNew": true,
+      "rating": 5,
+      "reviewsCount": 14,
+      "specs": [
+        "Ryzen 9 7950X",
+        "RTX 4080 Super",
+        "64GB DDR5",
+        "Custom Loop"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "MacBook Air 15\" M3",
+      "description": "Strikingly thin design, 8-core CPU, 10-core GPU, 16GB unified memory, 512GB SSD storage, silent fanless system.",
+      "price": 1499,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 18,
+      "isNew": false,
+      "rating": 4.8,
+      "reviewsCount": 210,
+      "specs": [
+        "M3 Chip",
+        "16GB RAM",
+        "512GB SSD",
+        "Liquid Retina"
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Logitech MX Master 3S",
+      "description": "Advanced wireless ergonomic mouse with 8K DPI tracking, quiet clicks, and MagSpeed electromagnetic scrolling.",
+      "price": 99,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 50,
+      "isNew": false,
+      "rating": 4.9,
+      "reviewsCount": 540,
+      "specs": [
+        "8000 DPI",
+        "Wireless Bluetooth",
+        "Multi-Device",
+        "Ergonomic"
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Corsair One i500 Studio Desktop",
+      "description": "Compact form-factor workstation with Intel Core i9, RTX 4090, 64GB memory, liquid cooled architecture.",
+      "price": 4599,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&auto=format&fit=crop&q=80",
+      "discount": 4,
+      "stock": 3,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 9,
+      "specs": [
+        "Core i9 Workstation",
+        "RTX 4090",
+        "64GB DDR5",
+        "Liquid Cooled"
+      ]
+    },
+    {
+      "id": "9",
+      "title": "MacBook Pro 14\" M3 Pro",
+      "description": "Professional power on the go. 12-core CPU, 18-core GPU, 18GB unified memory, and 512GB fast flash storage.",
+      "price": 1999,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 15,
+      "isNew": false,
+      "rating": 4.8,
+      "reviewsCount": 156,
+      "specs": [
+        "M3 Pro",
+        "18GB RAM",
+        "512GB SSD",
+        "Space Black"
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Lenovo ThinkPad X1 Carbon Gen 12",
+      "description": "The ultimate business ultrabook. Intel Core Ultra 7, 32GB LPDDR5x, 1TB SSD, Intel Arc Graphics, vPro secure.",
+      "price": 2149,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?w=600&auto=format&fit=crop&q=80",
+      "discount": 12,
+      "stock": 20,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 38,
+      "specs": [
+        "Core Ultra 7",
+        "32GB RAM",
+        "1TB SSD",
+        "Carbon Fiber"
+      ]
+    },
+    {
+      "id": "11",
+      "title": "Samsung Odyssey Ark 55\"",
+      "description": "55-inch 1000R curved gaming monitor with 165Hz refresh rate, 1ms response time, and cockpit mode rotating stand.",
+      "price": 1999,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80",
+      "discount": 15,
+      "stock": 6,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 74,
+      "specs": [
+        "55 Inch 4K",
+        "1000R Curved",
+        "165Hz Mini-LED",
+        "Cockpit Mode"
+      ]
+    },
+    {
+      "id": "12",
+      "title": "Alienware Aurora R16 Gaming Desktop",
+      "description": "Redesigned chassis with streamlined airflow, Intel Core i7-14700KF, RTX 4070 Ti Super, 32GB RAM, 1TB NVMe.",
+      "price": 2199,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 7,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 29,
+      "specs": [
+        "i7-14700KF",
+        "RTX 4070 Ti Super",
+        "32GB DDR5",
+        "Cryo-Tech Cooled"
+      ]
+    },
+    {
+      "id": "13",
+      "title": "MacBook Air 13\" M2",
+      "description": "Incredibly thin profile, 8-core CPU, 8-core GPU, 8GB unified memory, 256GB SSD storage, Midnight edition.",
+      "price": 999,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80",
+      "discount": 10,
+      "stock": 35,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 412,
+      "specs": [
+        "M2 Chip",
+        "8GB RAM",
+        "256GB SSD",
+        "Midnight Finish"
+      ]
+    },
+    {
+      "id": "14",
+      "title": "HP Spectre x360 Convertible",
+      "description": "2-in-1 touchscreen laptop with Intel Core i7, 16GB RAM, 1TB SSD, 4K OLED display, and active smart pen included.",
+      "price": 1549,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+      "discount": 5,
+      "stock": 11,
+      "isNew": false,
+      "rating": 4.5,
+      "reviewsCount": 83,
+      "specs": [
+        "Core i7 Touch",
+        "16GB RAM",
+        "4K OLED Screen",
+        "360 Flip Design"
+      ]
+    },
+    {
+      "id": "15",
+      "title": "NVIDIA GeForce RTX 4090 Founders Edition",
+      "description": "The ultimate GeForce GPU. Powered by NVIDIA Ada Lovelace architecture, 24GB G6X memory, DLSS 3 support.",
+      "price": 1599,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 4,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 188,
+      "specs": [
+        "24GB GDDR6X",
+        "Ada Lovelace",
+        "Ray Tracing Cores",
+        "DLSS 3.0"
+      ]
+    },
+    {
+      "id": "16",
+      "title": "ASUS ROG Horizon Compact PC",
+      "description": "Mini-ITX form factor beast with AMD Ryzen 7 7800X3D, RTX 4070, 32GB high-frequency DDR5, customizable layout.",
+      "price": 1849,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 9,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 21,
+      "specs": [
+        "Ryzen 7 7800X3D",
+        "RTX 4070 Mini",
+        "32GB DDR5",
+        "Mini-ITX Chassis"
+      ]
+    },
+    {
+      "id": "17",
+      "title": "MacBook Pro 16\" M2 Max",
+      "description": "Previous-gen flagship laptop with 12-core CPU, 38-core GPU, 32GB RAM, 1TB SSD storage, pristine condition.",
+      "price": 2899,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1496181130204-7552cc154d83?w=600&auto=format&fit=crop&q=80",
+      "discount": 15,
+      "stock": 5,
+      "isNew": false,
+      "rating": 4.8,
+      "reviewsCount": 98,
+      "specs": [
+        "M2 Max",
+        "32GB RAM",
+        "1TB SSD Storage",
+        "Liquid Retina"
+      ]
+    },
+    {
+      "id": "18",
+      "title": "ASUS Zenbook Pro 14 Duo OLED",
+      "description": "Dual-screen innovation creator laptop with Intel Core i9, 32GB RAM, RTX 4060, 14.5\" 120Hz main OLED screen.",
+      "price": 2299,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 6,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 45,
+      "specs": [
+        "Core i9 Dual Screen",
+        "RTX 4060 GPU",
+        "32GB DDR5 Memory",
+        "ScreenPad Plus"
+      ]
+    },
+    {
+      "id": "19",
+      "title": "Elgato Stream Deck XL",
+      "description": "Advanced stream controller console featuring 32 customizable macro LCD keys for live production pipeline control.",
+      "price": 249,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1616440347437-b1c73416efc2?w=600&auto=format&fit=crop&q=80",
+      "discount": 5,
+      "stock": 30,
+      "isNew": false,
+      "rating": 4.9,
+      "reviewsCount": 312,
+      "specs": [
+        "32 LCD Keys",
+        "Custom Layouts",
+        "OBS Integration",
+        "Magnetic Stand"
+      ]
+    },
+    {
+      "id": "20",
+      "title": "Apple iMac 24\" M3 Station",
+      "description": "All-in-one computing system featuring advanced 8-core CPU M3 chip, 4.5K Retina screen, 8GB RAM, and 256GB SSD.",
+      "price": 1299,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 10,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 76,
+      "specs": [
+        "Apple M3 Chip",
+        "24-inch 4.5K Retina",
+        "8GB Unified RAM",
+        "Magic Keyboard"
+      ]
+    },
+    {
+      "id": "21",
+      "title": "MacBook Pro 14\" M3 Base",
+      "description": "Entry professional performance. Next-gen Apple M3 architecture, 8GB RAM, 512GB ultra-fast SSD storage layout.",
+      "price": 1599,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 14,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 112,
+      "specs": [
+        "M3 Base Chip",
+        "8GB RAM Layout",
+        "512GB Fast Flash",
+        "Liquid Retina"
+      ]
+    },
+    {
+      "id": "22",
+      "title": "MSI Raider GE78 HX V14",
+      "description": "Extreme gaming performance laptop. Intel Core i9, RTX 4080, 32GB RAM, 2TB SSD, Matrix RGB lightbar structure.",
+      "price": 2999,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80",
+      "discount": 10,
+      "stock": 7,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 54,
+      "specs": [
+        "Core i9 Flagship",
+        "RTX 4080 Extreme",
+        "32GB DDR5 RAM",
+        "17-inch QHD+ Screen"
+      ]
+    },
+    {
+      "id": "23",
+      "title": "Corsair Dominator Titanium 64GB DDR5",
+      "description": "Premium dual channel desktop memory framework, 64GB (2x32GB) 6000MHz CL30, customizable RGB top bar.",
+      "price": 279,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1562976540-1502c2145186?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 40,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 63,
+      "specs": [
+        "64GB Dual Kit",
+        "DDR5 6000MHz",
+        "CL30 Low Latency",
+        "DHX Cooling"
+      ]
+    },
+    {
+      "id": "24",
+      "title": "HP Omen 45L Liquid PC",
+      "description": "Patented Cryo Chamber cooling tower PC, Intel Core i9-13900K, RTX 4090, 64GB RGB Memory, 2TB SSD framework.",
+      "price": 3999,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&auto=format&fit=crop&q=80",
+      "discount": 5,
+      "stock": 4,
+      "isNew": false,
+      "rating": 4.8,
+      "reviewsCount": 33,
+      "specs": [
+        "Core i9 Airflow",
+        "RTX 4090 Graphics",
+        "64GB DDR5 Kit",
+        "Cryo Chamber Case"
+      ]
+    },
+    {
+      "id": "25",
+      "title": "MacBook Air 13\" M3 16GB",
+      "description": "Upgraded configuration for heavy multitasking. Apple M3 processor, 16GB RAM, 512GB SSD storage framework.",
+      "price": 1299,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 22,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 87,
+      "specs": [
+        "Apple M3 Custom",
+        "16GB Fast Unified",
+        "512GB SSD Block",
+        "Fanless Layout"
+      ]
+    },
+    {
+      "id": "26",
+      "title": "Acer Predator Helios 16",
+      "description": "Intel Core i7 HX, NVIDIA RTX 4070, 16GB RAM, 1TB NVMe Gen4 SSD, 165Hz IPS gaming panel architecture.",
+      "price": 1649,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&auto=format&fit=crop&q=80",
+      "discount": 15,
+      "stock": 16,
+      "isNew": false,
+      "rating": 4.5,
+      "reviewsCount": 119,
+      "specs": [
+        "Core i7 HX CPU",
+        "RTX 4070 GPU",
+        "16GB System RAM",
+        "16-inch IPS Matrix"
+      ]
+    },
+    {
+      "id": "27",
+      "title": "WD Black SN854X NVMe 4TB SSD",
+      "description": "PCIe Gen4 storage array block with integrated heatsink, extreme speeds up to 7300MB/s for desktop setup.",
+      "price": 319,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 28,
+      "isNew": false,
+      "rating": 4.9,
+      "reviewsCount": 245,
+      "specs": [
+        "4TB Solid State",
+        "PCIe Gen4 Controller",
+        "7300 MB/s Speed",
+        "Aluminium Heatsink"
+      ]
+    },
+    {
+      "id": "28",
+      "title": "Apple Mac Studio M3 Ultra",
+      "description": "Compact computing module powerhouse. 24-core CPU, 60-core GPU, 64GB unified system memory, 1TB premium SSD architecture.",
+      "price": 3999,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 2,
+      "isNew": true,
+      "rating": 5,
+      "reviewsCount": 18,
+      "specs": [
+        "M3 Ultra Array",
+        "60-Core Next GPU",
+        "64GB System RAM",
+        "Pro Workstation Block"
+      ]
+    },
+    {
+      "id": "29",
+      "title": "MacBook Pro 14\" M2 Pro Custom",
+      "description": "Renewed flagship, Apple M2 Pro, 32GB high-speed memory config, 1TB flash storage system, perfect outer chassis.",
+      "price": 2199,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80",
+      "discount": 20,
+      "stock": 4,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 64,
+      "specs": [
+        "M2 Pro Engine",
+        "32GB Unified RAM",
+        "1TB SSD Core",
+        "Liquid Retina XDR"
+      ]
+    },
+    {
+      "id": "30",
+      "title": "Lenovo Legion Pro 7i Gen 9",
+      "description": "Intel Core i9-14900HX, RTX 4080 GPU, 32GB RAM, 1TB PCIe 4.0 SSD, AI-tuned performance cooling framework.",
+      "price": 2499,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 10,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 51,
+      "specs": [
+        "i9-14900HX",
+        "RTX 4080",
+        "32GB High Speed",
+        "Legion Coldfront AI"
+      ]
+    },
+    {
+      "id": "31",
+      "title": "ASUS ROG Swift OLED PG42UQ",
+      "description": "41.5-inch 4K OLED gaming display matrix, 138Hz overclocked refresh rating, anti-glare micro-texture surface coat.",
+      "price": 1399,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80",
+      "discount": 10,
+      "stock": 8,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 88,
+      "specs": [
+        "41.5 Inch 4K",
+        "OLED Matrix Display",
+        "138Hz High Refresh",
+        "0.1ms Ultrafast Response"
+      ]
+    },
+    {
+      "id": "32",
+      "title": "Vortex Vector AMD Alpha Custom",
+      "description": "High-tier gaming rig. AMD Ryzen 7 7700X, Liquid-cooled radiator, RTX 4070 Super graphics card module, 32GB DDR5.",
+      "price": 1799,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 11,
+      "isNew": true,
+      "rating": 4.6,
+      "reviewsCount": 23,
+      "specs": [
+        "Ryzen 7 7700X",
+        "RTX 4070 Super",
+        "32GB DDR5 Kit",
+        "AIO Cooled Tower"
+      ]
+    },
+    {
+      "id": "33",
+      "title": "MacBook Pro 16\" M3 Pro Space Black",
+      "description": "Premium workflow platform. 12-core CPU, 18-core GPU engine, 36GB RAM architecture, 512GB ultra SSD block.",
+      "price": 2899,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 9,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 73,
+      "specs": [
+        "M3 Pro Silicon",
+        "36GB RAM Module",
+        "512GB SSD Unit",
+        "Space Black Tone"
+      ]
+    },
+    {
+      "id": "34",
+      "title": "GIGABYTE AORUS 17X AX Framework",
+      "description": "Flagship notebook with Core i9 HX, RTX 4090 architecture, 32GB RAM, Windforce Infinity vapor chamber cooling.",
+      "price": 3599,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&auto=format&fit=crop&q=80",
+      "discount": 5,
+      "stock": 3,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 16,
+      "specs": [
+        "Core i9 13th Gen",
+        "RTX 4090 Array",
+        "32GB RAM Block",
+        "Vapor Chamber"
+      ]
+    },
+    {
+      "id": "35",
+      "title": "ASUS ROG Thor 1200W Platinum II",
+      "description": "High-efficiency 1200W power supply framework for custom PCs, integrated OLED status screen, aura sync illumination.",
+      "price": 349,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 15,
+      "isNew": false,
+      "rating": 4.9,
+      "reviewsCount": 104,
+      "specs": [
+        "1200 Watts Array",
+        "80+ Platinum",
+        "OLED Power Display",
+        "Axial Tech Cooling"
+      ]
+    },
+    {
+      "id": "36",
+      "title": "Apple Mac Mini M3 Hub",
+      "description": "Compact desktop framework. Apple M3 chip architecture with 8-core CPU and 10-core GPU, 16GB memory, 512GB SSD storage.",
+      "price": 799,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 19,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 142,
+      "specs": [
+        "M3 Silicon Engine",
+        "16GB Fast Unified",
+        "512GB Storage Unit",
+        "Ultra Compact Node"
+      ]
+    },
+    {
+      "id": "37",
+      "title": "MacBook Air 13\" M1 Classic",
+      "description": "Legendary value notebook framework. 8-core Apple M1, 8GB unified memory, 256GB secure SSD module.",
+      "price": 799,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80",
+      "discount": 12,
+      "stock": 45,
+      "isNew": false,
+      "rating": 4.8,
+      "reviewsCount": 1204,
+      "specs": [
+        "M1 Architecture",
+        "8GB Standard RAM",
+        "256GB Flash Storage",
+        "Gold Edition Chassis"
+      ]
+    },
+    {
+      "id": "38",
+      "title": "Razer Blade 16 Advanced 2024",
+      "description": "The ultimate gaming laptop framework. Core i9, RTX 4090, 16\" Dual-Mode Mini-LED screen (UHD+ 120Hz / FHD+ 240Hz).",
+      "price": 4199,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 5,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 27,
+      "specs": [
+        "Core i9 Intel",
+        "RTX 4090 Flagship",
+        "Dual Mode Screen",
+        "Anodized Aluminium"
+      ]
+    },
+    {
+      "id": "39",
+      "title": "Logitech G Pro X Superlight 2",
+      "description": "Ultra-lightweight wireless gaming mouse block, 60g design, Hero 2 sensor module tracking up to 32K DPI.",
+      "price": 149,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 65,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 388,
+      "specs": [
+        "60 Gram Chassis",
+        "32000 DPI Hero 2",
+        "Lightspeed Wireless",
+        "2K Polling Grid"
+      ]
+    },
+    {
+      "id": "40",
+      "title": "MSI Aegis RS 14th System",
+      "description": "Prebuilt desktop array workstation. Intel Core i9-14900K, RTX 4080 Super GPU block, 32GB DDR5, 2TB storage layout.",
+      "price": 2699,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&auto=format&fit=crop&q=80",
+      "discount": 6,
+      "stock": 6,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 41,
+      "specs": [
+        "i9-14900K Unlocked",
+        "RTX 4080 Super",
+        "32GB DDR5 Matrix",
+        "MSI liquid core"
+      ]
+    },
+    {
+      "id": "41",
+      "title": "MacBook Pro 14\" M1 Max Architect",
+      "description": "High tier custom configuration, M1 Max 10-core, 64GB unified system block memory, 2TB production level SSD layout.",
+      "price": 2499,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1496181130204-7552cc154d83?w=600&auto=format&fit=crop&q=80",
+      "discount": 25,
+      "stock": 2,
+      "isNew": false,
+      "rating": 4.9,
+      "reviewsCount": 49,
+      "specs": [
+        "M1 Max Architecture",
+        "64GB Unified Block",
+        "2TB Solid SSD",
+        "Silver Gloss Unit"
+      ]
+    },
+    {
+      "id": "42",
+      "title": "ASUS ROG Zephyrus G16 OLED",
+      "description": "Sleek and thin computing array notebook, AMD Ryzen 9, RTX 4070 graphic node, 240Hz ROG Nebula OLED screen.",
+      "price": 2199,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 13,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 59,
+      "specs": [
+        "Ryzen 9 Engine",
+        "RTX 4070 Thin",
+        "Nebula OLED 240Hz",
+        "Slash Lighting Case"
+      ]
+    },
+    {
+      "id": "43",
+      "title": "Corsair iCUE LINK H150i AIO Liquid",
+      "description": "360mm premium CPU liquid cooling grid with innovative single-cable management link structure, QX120 RGB fans.",
+      "price": 239,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 34,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 92,
+      "specs": [
+        "360mm Radiator Block",
+        "iCUE Link Ecosystem",
+        "3x QX120 RGB Fans",
+        "Magnetic Dome Pump"
+      ]
+    },
+    {
+      "id": "44",
+      "title": "Velocity Custom Workstation Node",
+      "description": "Dual Intel Xeon server workstation setup for machine learning pipelines, 128GB ECC memory, dual RTX 4090 architecture.",
+      "price": 8999,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 1,
+      "isNew": true,
+      "rating": 5,
+      "reviewsCount": 4,
+      "specs": [
+        "Dual Xeon Workstation",
+        "Dual RTX 4090 Link",
+        "128GB ECC Memory",
+        "Server Rack Chassis"
+      ]
+    },
+    {
+      "id": "45",
+      "title": "MacBook Pro 16\" M1 Pro Value",
+      "description": "Renewed professional laptop framework, M1 Pro chip, 16GB memory, 512GB SSD storage matrix, clean grade.",
+      "price": 1699,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80",
+      "discount": 15,
+      "stock": 8,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 182,
+      "specs": [
+        "M1 Pro Core",
+        "16GB RAM Cluster",
+        "512GB Storage Matrix",
+        "Space Gray Edition"
+      ]
+    },
+    {
+      "id": "46",
+      "title": "LG Gram Pro 17 Superlight",
+      "description": "Ultra lightweight laptop system, 17-inch IPS matrix display, Intel Core Ultra 7, 16GB memory, 1TB flash SSD.",
+      "price": 1499,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 15,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 43,
+      "specs": [
+        "Intel Core Ultra 7",
+        "1.3kg Magnesium Case",
+        "17 Inch Huge Screen",
+        "1TB Solid SSD"
+      ]
+    },
+    {
+      "id": "47",
+      "title": "Lian Li O11 Dynamic EVO Case",
+      "description": "Premium mid-tower dual-chamber chassis system for high end PC configurations, modular reversible design layout.",
+      "price": 169,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 25,
+      "isNew": false,
+      "rating": 4.9,
+      "reviewsCount": 415,
+      "specs": [
+        "Dual Chamber Layout",
+        "Tempered Glass Panel",
+        "Modular Architecture",
+        "Watercooling Support"
+      ]
+    },
+    {
+      "id": "48",
+      "title": "Intel NUC 13 Extreme Kit",
+      "description": "Next Unit of Computing small footprint desktop, Core i9-13900K, supports full-length desktop graphics card layouts.",
+      "price": 1249,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 6,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 19,
+      "specs": [
+        "Core i9-13900K SFF",
+        "Full PCIe 5.0 Slot",
+        "Triple Slot GPU Support",
+        "Modular SFF Node"
+      ]
+    },
+    {
+      "id": "49",
+      "title": "MacBook Pro 14\" M3 Max Elite",
+      "description": "Maxed out portable layout, M3 Max 14-core CPU, 30-core GPU, 36GB unified memory, 1TB premium flash framework.",
+      "price": 3199,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 6,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 35,
+      "specs": [
+        "M3 Max 14-Core",
+        "30-Core Heavy GPU",
+        "36GB RAM Framework",
+        "1TB Storage Array"
+      ]
+    },
+    {
+      "id": "50",
+      "title": "ASUS TUF Gaming A15",
+      "description": "AMD Ryzen 7, NVIDIA RTX 4060 graphics processor, 16GB DDR5 memory block, 512GB storage, military grade rugged outer frame.",
+      "price": 1099,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&auto=format&fit=crop&q=80",
+      "discount": 10,
+      "stock": 25,
+      "isNew": false,
+      "rating": 4.5,
+      "reviewsCount": 264,
+      "specs": [
+        "Ryzen 7 Processor",
+        "RTX 4060 Graphics",
+        "16GB DDR5 Module",
+        "Military Standard 810H"
+      ]
+    },
+    {
+      "id": "51",
+      "title": "Razer Leviathan V2 Soundbar",
+      "description": "Multi-driver PC gaming soundbar system with subwoofer, THX spatial audio simulation matrix, chroma RGB illumination.",
+      "price": 249,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1616440347437-b1c73416efc2?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 18,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 142,
+      "specs": [
+        "Multi-Driver Array",
+        "Down-Firing Subwoofer",
+        "THX Spatial Audio",
+        "Bluetooth 5.2 Core"
+      ]
+    },
+    {
+      "id": "52",
+      "title": "CyberPowerPC Gamer Supreme Station",
+      "description": "High frame prebuilt gaming computer, Intel Core i9, liquid cooling loop, RTX 4070 Ti, 32GB memory system.",
+      "price": 1999,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&auto=format&fit=crop&q=80",
+      "discount": 5,
+      "stock": 8,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 57,
+      "specs": [
+        "Core i9 Unlocked",
+        "RTX 4070 Ti Array",
+        "32GB RAM Configuration",
+        "RGB Lighting Tower"
+      ]
+    },
+    {
+      "id": "53",
+      "title": "MacBook Air 15\" M2 Balance",
+      "description": "Thin large screen experience, Apple M2 chip configuration, 8GB unified memory matrix, 512GB solid storage block.",
+      "price": 1299,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      "discount": 8,
+      "stock": 15,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 169,
+      "specs": [
+        "Apple M2 Layout",
+        "15.3 Inch Screen",
+        "8GB RAM System",
+        "512GB Flash Storage"
+      ]
+    },
+    {
+      "id": "54",
+      "title": "Sager Clevo Extreme Workstation",
+      "description": "Desktop replacement notebook framework, Intel Core i9 desktop CPU layout inside, RTX 4090, 64GB RAM, dual 2TB raid SSD.",
+      "price": 4399,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 2,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 11,
+      "specs": [
+        "Desktop i9-14900K",
+        "RTX 4090 Mobile",
+        "64GB RAM Matrix",
+        "4TB RAID Array"
+      ]
+    },
+    {
+      "id": "55",
+      "title": "Elgato Wave:3 Premium Microphone",
+      "description": "Studio grade USB condenser microphone and digital mixing console system, anti-clipping technology shield.",
+      "price": 149,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 40,
+      "isNew": false,
+      "rating": 4.8,
+      "reviewsCount": 421,
+      "specs": [
+        "Condenser Capsule",
+        "Wave Link App Control",
+        "Proprietary Clipguard",
+        "24-bit/96kHz Resolution"
+      ]
+    },
+    {
+      "id": "56",
+      "title": "ASUS ROG Strix GA35 Machine",
+      "description": "High end gaming PC tower, AMD Ryzen 9 5950X extreme core, RTX 3090 architecture, 64GB DDR4 system memory framework.",
+      "price": 2499,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1555680202-c86f0e12f086?w=600&auto=format&fit=crop&q=80",
+      "discount": 20,
+      "stock": 3,
+      "isNew": false,
+      "rating": 4.7,
+      "reviewsCount": 19,
+      "specs": [
+        "Ryzen 9 5950X",
+        "RTX 3090 GPU Node",
+        "64GB RAM Framework",
+        "Dual Chamber Chassis"
+      ]
+    },
+    {
+      "id": "57",
+      "title": "MacBook Pro 13\" M2 Touch Bar",
+      "description": "Classic chassis configuration with touch bar interface module, M2 chip, 8GB memory, 512GB solid storage.",
+      "price": 1199,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1496181130204-7552cc154d83?w=600&auto=format&fit=crop&q=80",
+      "discount": 10,
+      "stock": 12,
+      "isNew": false,
+      "rating": 4.5,
+      "reviewsCount": 134,
+      "specs": [
+        "M2 Core Engine",
+        "Touch Bar Pipeline",
+        "8GB Unified Layout",
+        "512GB Storage Unit"
+      ]
+    },
+    {
+      "id": "58",
+      "title": "Samsung Galaxy Book4 Ultra",
+      "description": "Premium ecosystem notebook layout, Core i9 Intel Ultra, 32GB system memory, NVIDIA RTX 4070, Dynamic AMOLED 2X screen.",
+      "price": 2399,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 7,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 29,
+      "specs": [
+        "Core Ultra 9",
+        "RTX 4070 Graphic",
+        "AMOLED 2X Touch Screen",
+        "Ultra Thin Build"
+      ]
+    },
+    {
+      "id": "59",
+      "title": "ASUS ROG Azoth Wireless Custom",
+      "description": "75% custom DIY gaming mechanical keyboard layout, gasket mount structure, built in OLED parameter control panel.",
+      "price": 249,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 22,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 156,
+      "specs": [
+        "75% Gasket Mount",
+        "OLED Status Core",
+        "Hot-Swappable Switches",
+        "Tri-Mode Connection"
+      ]
+    },
+    {
+      "id": "60",
+      "title": "Apple Mac Pro Intel Rack Station",
+      "description": "Enterprise grade computing node frame, Intel Xeon 24-core, 96GB ECC memory layout, dual Radeon Pro Vega GPUs.",
+      "price": 5999,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1587202372775-e229f172b9d7?w=600&auto=format&fit=crop&q=80",
+      "discount": 30,
+      "stock": 1,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 8,
+      "specs": [
+        "Intel Xeon 24-Core",
+        "96GB ECC Server RAM",
+        "Dual Radeon Pro Vega",
+        "Stainless Steel Frame"
+      ]
+    },
+    {
+      "id": "61",
+      "title": "MacBook Pro 15\" Retina Vintage",
+      "description": "Collector item grade pristine laptop layout, Quad Core i7 processor, dual graphics framework, legendary scissor keyboard.",
+      "price": 599,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 3,
+      "isNew": false,
+      "rating": 4.8,
+      "reviewsCount": 540,
+      "specs": [
+        "Intel Core i7 Quad",
+        "Retina Display Engine",
+        "Legendary Port Hubs",
+        "Scissor Mechanism"
+      ]
+    },
+    {
+      "id": "62",
+      "title": "MSI Stealth 14 Studio",
+      "description": "Magnesium-aluminum alloy light computing notebook, Core i7, RTX 4060 graphic node, 16GB memory framework.",
+      "price": 1499,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=600&auto=format&fit=crop&q=80",
+      "discount": 10,
+      "stock": 14,
+      "isNew": false,
+      "rating": 4.5,
+      "reviewsCount": 62,
+      "specs": [
+        "Core i7 Slim",
+        "RTX 4060 Mobile",
+        "14 Inch QHD Screen",
+        "Vapor Chamber Active"
+      ]
+    },
+    {
+      "id": "63",
+      "title": "Noctua NH-D15 Chromax Black",
+      "description": "Elite flagship dual-tower CPU air cooling structure for performance desktops, dual NF-A15 140mm PWM fans.",
+      "price": 119,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 50,
+      "isNew": false,
+      "rating": 4.9,
+      "reviewsCount": 892,
+      "specs": [
+        "Dual Tower Airflow",
+        "6 Heatpipe Matrix",
+        "2x NF-A15 Fans",
+        "Chromax Black Finish"
+      ]
+    },
+    {
+      "id": "64",
+      "title": "Skytech Prism II Custom Rig",
+      "description": "Showcase computer build with open air aesthetic, AMD Ryzen 9, custom liquid cooling loop, RTX 4090 architecture.",
+      "price": 4299,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1591488320449-011701bb6704?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 2,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 14,
+      "specs": [
+        "Ryzen 9 High End",
+        "RTX 4090 Array",
+        "64GB DDR5 Memory",
+        "Metallic Chassis Display"
+      ]
+    },
+    {
+      "id": "65",
+      "title": "MacBook Air 13\" M3 Space Gray",
+      "description": "Standard daily consumer portal, Apple M3 system architecture, 8GB unified memory block, 512GB fast flash.",
+      "price": 1099,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 30,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 143,
+      "specs": [
+        "M3 Base Silicon",
+        "8GB RAM System",
+        "512GB SSD Module",
+        "Space Gray Coating"
+      ]
+    },
+    {
+      "id": "66",
+      "title": "ASUS Vivobook Pro 16X OLED",
+      "description": "Creator class notebook framework, Intel Core i9, 32GB RAM, RTX 4060 graphics unit, 16\" 3.2K 120Hz OLED matrix.",
+      "price": 1699,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1603302576837-37561b2e2302?w=600&auto=format&fit=crop&q=80",
+      "discount": 5,
+      "stock": 11,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 78,
+      "specs": [
+        "Core i9 Creator",
+        "RTX 4060 GPU Node",
+        "3.2K OLED Screen",
+        "Asus DialPad Custom"
+      ]
+    },
+    {
+      "id": "67",
+      "title": "Razer Basilisk V3 Pro Wireless",
+      "description": "Ergonomic custom wireless gaming mouse component, hyperscroll tilt wheel matrix, 13-zone chroma lighting array.",
+      "price": 169,
+      "category": "Kompyuter jihozlari",
+      "image": "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 42,
+      "isNew": true,
+      "rating": 4.8,
+      "reviewsCount": 219,
+      "specs": [
+        "Focus Pro 30K Optical",
+        "HyperScroll Tilt Wheel",
+        "Wireless Charging Dock",
+        "11 Programmable Keys"
+      ]
+    },
+    {
+      "id": "68",
+      "title": "Thermaltake Tower 500 Custom PC",
+      "description": "Vertical panoramic custom desktop build, Intel Core i7, triple radiator liquid cooling array, RTX 4070 Super.",
+      "price": 2199,
+      "category": "Kompyuterlar",
+      "image": "https://images.unsplash.com/photo-1547082299-de196ea013d6?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 5,
+      "isNew": true,
+      "rating": 4.7,
+      "reviewsCount": 16,
+      "specs": [
+        "Core i7 Fluid",
+        "RTX 4070 Super",
+        "Vertical Tower Case",
+        "Panoramic Glass"
+      ]
+    },
+    {
+      "id": "69",
+      "title": "MacBook Air 15\" M3 Maxed Out",
+      "description": "Highest tiered configuration for the 15 inch lightweight frame, M3 chip, 24GB massive RAM, 2TB huge SSD layer.",
+      "price": 2499,
+      "category": "MacBook",
+      "image": "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&auto=format&fit=crop&q=80",
+      "discount": 0,
+      "stock": 4,
+      "isNew": true,
+      "rating": 4.9,
+      "reviewsCount": 22,
+      "specs": [
+        "M3 Maxed Silicon",
+        "24GB Maximum RAM",
+        "2TB Large SSD Unit",
+        "Midnight Deep Finish"
+      ]
+    },
+    {
+      "id": "70",
+      "title": "Lenovo Legion Slim 5 Gen 9",
+      "description": "Sleek form factor gaming notebook. AMD Ryzen 7, NVIDIA RTX 4060 graphics engine, 16GB DDR5, 1TB flash storage system.",
+      "price": 1299,
+      "category": "Notebook",
+      "image": "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=600&auto=format&fit=crop&q=80",
+      "discount": 12,
+      "stock": 19,
+      "isNew": false,
+      "rating": 4.6,
+      "reviewsCount": 147,
+      "specs": [
+        "Ryzen 7 Mobile",
+        "RTX 4060 Balanced",
+        "16GB DDR5 Matrix",
+        "Slim Anodized Build"
+      ]
+    }
+  ]
+}
