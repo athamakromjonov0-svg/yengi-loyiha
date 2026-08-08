@@ -1,34 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import { 
-  ShoppingCart, Heart, Eye, Star, Zap, ShieldCheck, Loader2, Cpu, ArrowUpRight
+  ShoppingCart, Heart, Eye, Star, Zap, ShieldCheck, Loader2, Cpu, ArrowUpRight, Scale
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 
 export default function ProductCard({ product }) {
-  const { addToCart, toggleWishlist, wishlist, showToast } = useApp();
+  const { addToCart, toggleWishlist, wishlist, showToast, toggleCompare, compareList } = useApp();
   const [isAdding, setIsAdding] = useState(false);
 
-  if (!product) return null;
+  // --- useMemo: Mahsulot identifikatori va nomi (har renderda qayta hisoblanmasligi uchun) ---
+  const currentId = useMemo(() => product?._id || product?.id, [product]);
+  const productName = useMemo(() => product?.name || product?.title || '', [product]);
 
-  const currentId = product._id || product.id;
-  const productName = product.name || product.title || '';
+  // --- useMemo: Sevimlilar ro'yxatida borligini tekshirish ---
+  const isWishlisted = useMemo(() => {
+    if (!Array.isArray(wishlist) || !currentId) return false;
+    return wishlist.some(item => (item._id || item.id) === currentId);
+  }, [wishlist, currentId]);
 
-  const isWishlisted = Array.isArray(wishlist)
-    ? wishlist.some(item => (item._id || item.id) === currentId)
-    : false;
+  // --- useMemo: Solishtirish ro'yxatida borligini tekshirish ---
+  const isCompared = useMemo(() => {
+    if (!Array.isArray(compareList) || !currentId) return false;
+    return compareList.some(item => (item._id || item.id) === currentId);
+  }, [compareList, currentId]);
 
-  const formatPrice = (price) =>
-    new Intl.NumberFormat('uz-UZ').format(Math.round(price)) + " so'm";
+  // --- useMemo: Narx formatlash funksiyasi (har renderda qayta yaratilmasligi uchun) ---
+  const formatPrice = useCallback((price) => {
+    return new Intl.NumberFormat('uz-UZ').format(Math.round(price)) + " so'm";
+  }, []);
 
-  const hasDiscount = product.discount && Number(product.discount) > 0;
-  const originalPrice = Number(product.price) || 0;
-  const currentPrice = hasDiscount
-    ? originalPrice * (1 - Number(product.discount) / 100)
-    : originalPrice;
+  // --- useMemo: Chegirma va narx hisob-kitoblari ---
+  const { hasDiscount, originalPrice, currentPrice } = useMemo(() => {
+    const discount = Number(product?.discount) || 0;
+    const hasDisc = discount > 0;
+    const origPrice = Number(product?.price) || 0;
+    const currPrice = hasDisc ? origPrice * (1 - discount / 100) : origPrice;
+    return { hasDiscount: hasDisc, originalPrice: origPrice, currentPrice: currPrice };
+  }, [product]);
 
-  const renderCategory = () => {
-    if (!product.category) return "KATEGORIYA";
+  // --- useMemo: Kategoriya nomini render qilish ---
+  const renderCategory = useCallback(() => {
+    if (!product?.category) return "KATEGORIYA";
     let name = "KATEGORIYA";
     if (typeof product.category === 'object') {
       name = product.category.name || product.category.title || "KATEGORIYA";
@@ -36,9 +49,10 @@ export default function ProductCard({ product }) {
       name = String(product.category);
     }
     return name.toUpperCase();
-  };
+  }, [product]);
 
-  const handleAddToCart = (e) => {
+  // --- useCallback: Savatga qo'shish ---
+  const handleAddToCart = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     if (isAdding) return;
@@ -51,9 +65,10 @@ export default function ProductCard({ product }) {
     } finally {
       setTimeout(() => setIsAdding(false), 600);
     }
-  };
+  }, [isAdding, addToCart, product, productName, showToast]);
 
-  const handleWishlistToggle = (e) => {
+  // --- useCallback: Sevimlilarga qo'shish/olib tashlash ---
+  const handleWishlistToggle = useCallback((e) => {
     e.preventDefault();
     e.stopPropagation();
     try {
@@ -65,7 +80,20 @@ export default function ProductCard({ product }) {
     } catch (error) {
       console.error("Wishlist tizimida xatolik:", error);
     }
-  };
+  }, [toggleWishlist, product, isWishlisted, showToast]);
+
+  // --- useCallback: Solishtirishga qo'shish/olib tashlash ---
+  const handleCompareToggle = useCallback((e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    try {
+      toggleCompare?.(product);
+    } catch (error) {
+      console.error("Compare tizimida xatolik:", error);
+    }
+  }, [toggleCompare, product]);
+
+  if (!product) return null;
 
   return (
     <div className="group relative rounded-2xl border border-slate-900 bg-slate-950/40 p-4 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-emerald-500/30 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.15)] overflow-hidden flex flex-col h-[520px] font-sans select-none text-white">
@@ -114,6 +142,18 @@ export default function ProductCard({ product }) {
             }`}
           >
             <Heart className={`h-4 w-4 ${isWishlisted ? 'fill-white' : ''}`} />
+          </button>
+          <button
+            type="button"
+            onClick={handleCompareToggle}
+            className={`flex h-9 w-9 items-center justify-center rounded-xl border backdrop-blur-md transition-all duration-200 shadow-xl ${
+              isCompared
+                ? 'bg-blue-500 text-white border-blue-500 shadow-blue-500/20'
+                : 'bg-slate-950/90 border-slate-800 text-slate-400 hover:text-blue-400 hover:border-blue-500/30'
+            }`}
+            title={isCompared ? "Solishtirishdan olib tashlash" : "Solishtirishga qo'shish"}
+          >
+            <Scale className={`h-4 w-4 ${isCompared ? 'fill-white' : ''}`} />
           </button>
           <Link
             to={`/product/${currentId}`}

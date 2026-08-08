@@ -21,14 +21,12 @@ export default function LoginPage() {
 
     setIsAuthenticating(true);
 
-    setTimeout(() => {
-      const success = login(email, password);
-      setIsAuthenticating(false);
-      
-      if (success) {
-        navigate(from, { replace: true });
-      }
-    }, 800);
+    const success = await login(email, password);
+    setIsAuthenticating(false);
+
+    if (success) {
+      navigate(from, { replace: true });
+    }
   };
 
   const handleQuickInject = () => {
@@ -43,14 +41,14 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12 sm:px-6 lg:px-8 font-sans select-none text-slate-100 relative overflow-hidden bg-slate-950">
-      
+
       {/* ORQA FON EFFEKTLARI */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-30" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse duration-[4000ms]" />
-      
+
       {/* CARD SHILD */}
       <div className="w-full max-w-md space-y-6 rounded-3xl border border-slate-900 bg-slate-950/40 backdrop-blur-xl p-8 shadow-2xl relative z-10 border-t-slate-800/80 transition-all duration-300 hover:border-slate-800">
-        
+
         {/* LOGO VA HEADER */}
         <div className="text-center">
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-900 via-slate-950 to-black text-emerald-400 mb-4 border border-slate-800 shadow-xl shadow-emerald-500/10">
@@ -67,7 +65,7 @@ export default function LoginPage() {
         {/* FORMA */}
         <form className="space-y-5" onSubmit={handleSubmit}>
           <div className="space-y-4">
-            
+
             {/* Input Email */}
             <div>
               <label className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1.5 font-mono">
@@ -117,7 +115,7 @@ export default function LoginPage() {
           </div>
 
           {/* TEZKOR AVTO-TO'LDIRISH SHIELD (NEON GLOW) */}
-          <div 
+          <div
             onClick={handleQuickInject}
             className="group border border-slate-900 bg-slate-950/90 hover:border-emerald-500/30 rounded-xl p-3.5 text-[11px] text-slate-400 leading-relaxed cursor-pointer transition-all duration-300 select-none relative overflow-hidden hover:shadow-[0_0_20px_rgba(52,211,153,0.03)]"
             title="Kiber-ma'lumotlarni avtomatik joylash"
@@ -135,8 +133,8 @@ export default function LoginPage() {
           </div>
 
           {/* SUBMIT BUTTON */}
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isAuthenticating}
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-900 border border-slate-800 py-3 text-xs font-black text-slate-200 uppercase tracking-widest transition-all duration-300 hover:bg-emerald-400 hover:text-slate-950 hover:border-emerald-400 disabled:opacity-50 active:scale-[0.99] shadow-xl hover:shadow-emerald-500/10"
           >

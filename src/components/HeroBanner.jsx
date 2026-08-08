@@ -1,204 +1,279 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { 
-  Sparkles, 
-  ArrowRight, 
-  ShieldCheck, 
-  Zap, 
-  Star, 
-  Users, 
-  Flame, 
-  Award, 
   ShoppingCart, 
-  TrendingUp, 
-  Layers, 
-  Package 
+  ChevronLeft, 
+  ChevronRight, 
+  Zap, 
+  ShieldCheck, 
+  Truck, 
+  Cpu, 
+  Sparkles,
+  ArrowRight,
+  Star
 } from 'lucide-react';
 
-/**
- * Premium Kiber-Futuristik HeroBanner Komponenti
- * Saytning birinchi ekranida foydalanuvchini jalb qiluvchi marketing markazi.
- */
+// ==========================================
+// 1. SLAYDER MA'LUMOTLARI VA KONFIGURATSIYA
+// ==========================================
+
+const AUTO_PLAY_INTERVAL = 5000; // Slayd almashish vaqti (ms)
+
+const BANNER_SLIDES = [
+  {
+    id: 1,
+    tag: "TOP TAKLIF • 2026",
+    title: "Kompyuterlar Bozori",
+    highlightTitle: "Noutbuklar & Aksessuarlar",
+    description: "Eng so'nggi avlod Intel Core i9 va RTX 4090 grafik kartasiga ega kuchli geyming va ish noutbuklari.",
+    badgeText: "Chegirma 20%",
+    oldPrice: "$1,499",
+    newPrice: "$1,199",
+    rating: 4.9,
+    categoryBadges: ['Noutbuklar', 'Stol kompyuterlar', 'Monitorlar', 'Aksessuarlar'],
+    // Yuqori sifatli noutbuk rasmi (PNG / Transparent look)
+    imgUrl: "https://images.unsplash.com/photo-1603302576837-37561b2fe18d?q=80&w=1000&auto=format&fit=crop",
+    gradientBg: "from-violet-700 via-purple-600 to-indigo-900",
+    accentColor: "bg-amber-400 text-slate-950",
+    glowColor: "rgba(139, 92, 246, 0.4)"
+  },
+  {
+    id: 2,
+    tag: "YANGI KELGAN",
+    title: "Ultra Ish Stansiyasi",
+    highlightTitle: "Monoblok va Monitorlar",
+    description: "Professional dizaynerlar hamda dasturchilar uchun 4K Retina mos keluvchi displeylar va kuchli ish stansiyalari.",
+    badgeText: "Chegirma 15%",
+    oldPrice: "$2,100",
+    newPrice: "$1,785",
+    rating: 5.0,
+    categoryBadges: ['4K Monitorlar', 'Workstation', 'Klaviaturalar', 'Sichqonchalar'],
+    imgUrl: "https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1000&auto=format&fit=crop",
+    gradientBg: "from-blue-700 via-indigo-600 to-slate-900",
+    accentColor: "bg-cyan-400 text-slate-950",
+    glowColor: "rgba(59, 130, 246, 0.4)"
+  },
+  {
+    id: 3,
+    tag: "GEAYMING PERIFERIYA",
+    title: "Kiber Sport To'plami",
+    highlightTitle: "Mexanik Aksessuarlar",
+    description: "RGB yoritgichli mexanik klaviaturalar, 26,000 DPI sichqonlar va simsiz geyming garnituralari.",
+    badgeText: "Chegirma 30%",
+    oldPrice: "$350",
+    newPrice: "$245",
+    rating: 4.8,
+    categoryBadges: ['RGB Klaviatura', 'Gaming Mouse', 'Naushnik', 'Mikrofon'],
+    imgUrl: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?q=80&w=1000&auto=format&fit=crop",
+    gradientBg: "from-rose-600 via-orange-600 to-amber-700",
+    accentColor: "bg-yellow-300 text-slate-950",
+    glowColor: "rgba(244, 63, 94, 0.4)"
+  }
+];
+
+// ==========================================
+// 2. YORDAMCHI XUSUSIYAT KARDLARI (BADGES)
+// ==========================================
+
+const FeatureBadge = ({ icon: Icon, text }) => (
+  <div className="flex items-center gap-2 rounded-xl bg-white/10 backdrop-blur-md px-3 py-1.5 border border-white/15 text-xs text-white/90 font-medium transition-all hover:bg-white/20">
+    <Icon className="h-3.5 w-3.5 text-amber-300" />
+    <span>{text}</span>
+  </div>
+);
+
+// ==========================================
+// 3. ASOSIY HERO BANNER KOMPONENTI
+// ==========================================
+
 export default function HeroBanner() {
-  // Jonli xaridorlar va buyurtmalar holati (Social Proof uchun)
-  const [activeUsers, setActiveUsers] = useState(142);
-  const [todayOrders, setTodayOrders] = useState(89);
-  
-  // Eksklyuziv taklif uchun jonli hisoblagich (Taymer)
-  const [timeLeft, setTimeLeft] = useState({ hours: 4, minutes: 24, seconds: 45 });
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [direction, setDirection] = useState('next'); // 'next' yoki 'prev'
 
-  // Jonli ma'lumotlar simulyatsiyasi (Efektlar)
+  const totalSlides = BANNER_SLIDES.length;
+
+  // Next Slide
+  const handleNext = useCallback(() => {
+    setDirection('next');
+    setCurrentSlide((prev) => (prev + 1) % totalSlides);
+  }, [totalSlides]);
+
+  // Prev Slide
+  const handlePrev = useCallback(() => {
+    setDirection('prev');
+    setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
+  }, [totalSlides]);
+
+  // Auto-play Taymer
   useEffect(() => {
-    const userInterval = setInterval(() => {
-      setActiveUsers(prev => prev + Math.floor(Math.random() * 5) - 2);
-    }, 3000);
-
-    const orderInterval = setInterval(() => {
-      setTodayOrders(prev => prev + (Math.random() > 0.6 ? 1 : 0));
-    }, 7000);
-
-    return () => {
-      clearInterval(userInterval);
-      clearInterval(orderInterval);
-    };
-  }, []);
-
-  // Flash-sale taymer hisoblagichi
-  useEffect(() => {
+    if (isHovered) return; // Sichqoncha banner ustida bo'lsa to'xtatib turadi
     const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0) {
-          return { ...prev, seconds: prev.seconds - 1 };
-        } else if (prev.minutes > 0) {
-          return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        } else if (prev.hours > 0) {
-          return { hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        }
-        return { hours: 0, minutes: 0, seconds: 0 };
-      });
-    }, 1000);
+      handleNext();
+    }, AUTO_PLAY_INTERVAL);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [handleNext, isHovered]);
 
-  // Katalog bo'limiga silliq o'tish
-  const handleScrollToProducts = () => {
-    const productsSection = document.getElementById('mahsulotlar');
-    if (productsSection) {
-      productsSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 800, behavior: 'smooth' });
-    }
-  };
+  const slide = useMemo(() => BANNER_SLIDES[currentSlide], [currentSlide]);
 
   return (
-    <div className="relative overflow-hidden bg-slate-950 rounded-3xl mx-4 my-8 sm:mx-8 shadow-2xl border border-slate-900/80 font-sans select-none">
-      
-      {/* 1-QISM: CHUQQUR FON EFFEKTLARI (Kiber-Grafika) */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 right-1/4 -mt-20 h-[600px] w-[600px] rounded-full bg-emerald-500/10 blur-[130px] animate-pulse" />
-        <div className="absolute bottom-0 left-1/4 -mb-20 h-[600px] w-[600px] rounded-full bg-indigo-500/10 blur-[130px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[400px] w-[800px] bg-gradient-to-r from-emerald-500/5 to-violet-500/5 blur-[100px]" />
+    <div className="w-full px-4 sm:px-6 lg:px-8 py-4">
+      {/* Ixcham Banner Konteyneri (Max height: 420px - 480px) 
+      */}
+      <section 
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`relative overflow-hidden rounded-[2.5rem] bg-gradient-to-r ${slide.gradientBg} shadow-2xl transition-all duration-700 min-h-[420px] lg:h-[460px] flex items-center border border-white/15`}
+      >
+        {/* Visual Noise va Radial Background Pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,_rgba(255,255,255,0.25),_transparent_35%),radial-gradient(circle_at_80%_70%,_rgba(255,255,255,0.15),_transparent_40%)] pointer-events-none" />
         
-        {/* Yuqori texnologiyali kiber-to'r paneli (Tech Grid Pattern) */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_60%,transparent_100%)] opacity-20" />
-      </div>
+        {/* Fon Yorug'ligi (Glow effect) */}
+        <div 
+          className="absolute right-1/4 top-1/2 -translate-y-1/2 w-96 h-96 rounded-full blur-[100px] pointer-events-none transition-all duration-700 opacity-60"
+          style={{ backgroundColor: slide.glowColor }}
+        />
 
-      {/* 2-QISM: ASOSIY MARKAZIY MA'LUMOTLAR */}
-      <div className="relative z-10 mx-auto max-w-7xl px-6 py-20 sm:py-28 lg:px-8 lg:py-36 flex flex-col items-center text-center">
-        
-        {/* Yuqori Neon Bildirishnoma Vidjeti */}
-        <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/5 px-4 py-1.5 text-xs font-semibold text-emerald-400 backdrop-blur-md mb-8 shadow-[0_0_20px_rgba(16,185,129,0.08)]">
-          <Sparkles className="h-3.5 w-3.5 text-emerald-400 animate-spin" />
-          <span>Yangi Premium Avlod Ekotizimi v5.0 Jonli Tizimda</span>
-          <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping ml-1" />
-        </div>
-
-        {/* Katta va Shaffof Futuristik Sarlavha */}
-        <h1 className="text-4xl font-black tracking-tight text-white sm:text-6xl md:text-7xl max-w-5xl mx-auto leading-[1.1] mb-8">
-          Kelajak Texnologiyasi Endi <br />
-          <span className="bg-gradient-to-r from-white via-slate-200 to-emerald-400 bg-clip-text text-transparent drop-shadow-sm">
-            O\`zbekistonda Premium
-          </span> formatda
-        </h1>
-
-        {/* Sarlavha osti marketing tavsifi */}
-        <p className="text-sm sm:text-base lg:text-lg leading-relaxed text-slate-400 max-w-3xl mx-auto mb-10 font-normal">
-          Mikro-muhandislik asosida yaratilgan eksklyuziv gadjetlar, aqlli elektronika komponentlari va noodatiy kiber-aksessuarlar platformasi. Haqiqiy natija egalari uchun mo\`ljallangan oliy darajadagi muhandislik namunalari.
-        </p>
-
-        {/* Tezkor marketing hisoblagichi (Flash Offer Widget) */}
-        <div className="flex flex-wrap items-center justify-center gap-4 border border-slate-900 bg-slate-950/60 backdrop-blur-md rounded-2xl p-4 mb-12 max-w-xl w-full">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-400">
-            <TrendingUp className="h-4 w-4 animate-bounce" /> Eksklyuziv Partiya:
-          </div>
-          <div className="flex items-center gap-1.5 text-sm font-mono text-white bg-slate-900 px-3 py-1 rounded-lg border border-slate-800">
-            <span className="text-slate-500 font-sans text-[10px] uppercase mr-1">Vaqt:</span>
-            <span>{String(timeLeft.hours).padStart(2, '0')}</span>:
-            <span>{String(timeLeft.minutes).padStart(2, '0')}</span>:
-            <span>{String(timeLeft.seconds).padStart(2, '0')}</span>
-          </div>
-          <div className="text-xs text-slate-500 flex items-center gap-1">
-            <Package className="h-3.5 w-3.5 text-emerald-400" />
-            <span>Omborda faqat <strong className="text-slate-200">14 dona</strong> qoldi</span>
-          </div>
-        </div>
-
-        {/* Interaktiv Harakat Tugmalari */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-12 relative z-20">
-          <button 
-            onClick={handleScrollToProducts}
-            className="group flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl bg-emerald-400 px-8 py-4 text-xs font-black text-slate-950 shadow-lg shadow-emerald-500/10 hover:bg-emerald-300 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
-          >
-            <ShoppingCart className="h-4 w-4" />
-            <span>KATALOGGA O\`TISH</span>
-            <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" />
-          </button>
+        {/* Banner kontent grid strukturasi */}
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           
-          <a 
-            href="#kafolat"
-            className="flex w-full sm:w-auto items-center justify-center gap-2.5 rounded-xl border border-slate-800 bg-slate-900/40 backdrop-blur-sm px-8 py-4 text-xs font-bold text-slate-300 hover:text-white hover:border-slate-700 hover:bg-slate-900/80 transition-all duration-200"
-          >
-            <ShieldCheck className="h-4 w-4 text-emerald-400" />
-            <span>SIFAT KAFOLATI ATTESTACIYASI</span>
-          </a>
-        </div>
-
-        {/* JONLI STATISTIKA INTEGRACIYASI (Social Proof) */}
-        <div className="flex flex-wrap items-center justify-center gap-4 bg-slate-900/20 border border-slate-900/60 px-6 py-2.5 rounded-full text-xs text-slate-400 mb-16 backdrop-blur-sm">
-          <div className="flex items-center gap-1.5 border-r border-slate-900 pr-4 last:border-0">
-            <Flame className="h-4 w-4 text-orange-500 animate-pulse" />
-            <span>Aktiv xaridorlar: <strong className="text-white font-mono font-bold">{activeUsers}</strong></span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Layers className="h-3.5 w-3.5 text-blue-400" />
-            <span>Bugungi muvaffaqiyatli yetkazishlar: <strong className="text-white font-mono font-bold">{todayOrders}</strong></span>
-          </div>
-        </div>
-
-        {/* 3-QISM: JONLI GLOW-METRIKALAR VIDJETI */}
-        <div className="w-full border-t border-slate-900/60 pt-12">
-          <div className="grid grid-cols-2 gap-y-10 sm:grid-cols-4 items-center justify-center text-center">
+          {/* ========================================== */}
+          {/* CHAP TOMON: MATNLAR VA TUGMALAR (7 Cols)  */}
+          {/* ========================================== */}
+          <div className="lg:col-span-7 flex flex-col items-start justify-center text-white">
             
-            {/* Metrika 1 */}
-            <div className="px-4 border-r border-slate-900/60 last:border-0">
-              <div className="flex items-center justify-center text-emerald-400 mb-2.5 mx-auto bg-emerald-500/5 h-10 w-10 rounded-xl border border-emerald-500/10">
-                <Zap className="h-5 w-5" />
+            {/* Tag Badge */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 border border-white/20 backdrop-blur-md px-3.5 py-1 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm">
+                <Sparkles className="h-3 w-3 text-amber-300 animate-pulse" />
+                {slide.tag}
+              </span>
+              <div className="flex items-center gap-1 bg-black/20 backdrop-blur-md px-2.5 py-1 rounded-full text-[11px] font-semibold text-amber-300 border border-white/10">
+                <Star className="h-3 w-3 fill-amber-300 text-amber-300" />
+                <span>{slide.rating}</span>
               </div>
-              <p className="text-2xl font-black tracking-tight text-white sm:text-3xl font-mono">100%</p>
-              <p className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-widest font-bold">Original Kafolat</p>
             </div>
 
-            {/* Metrika 2 */}
-            <div className="px-4 sm:border-r border-slate-900/60 last:border-0">
-              <div className="flex items-center justify-center text-amber-400 mb-2.5 mx-auto bg-amber-500/5 h-10 w-10 rounded-xl border border-amber-500/10">
-                <Star className="h-5 w-5" />
+            {/* Sarlavhalar */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-none text-white drop-shadow-sm">
+              {slide.title}
+            </h1>
+            <h2 className="mt-1 text-xl sm:text-2xl lg:text-3xl font-bold text-amber-300/90 tracking-tight">
+              {slide.highlightTitle}
+            </h2>
+
+            {/* Qisqa Tavsif */}
+            <p className="mt-3 text-sm sm:text-base text-white/85 max-w-xl line-clamp-2 leading-relaxed font-normal">
+              {slide.description}
+            </p>
+
+            {/* Narxlar va CTA Tugmasi */}
+            <div className="mt-6 flex flex-wrap items-center gap-4">
+              <button
+                onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
+                className="group relative inline-flex items-center justify-center gap-2.5 rounded-2xl bg-slate-950 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-slate-950/40 hover:bg-slate-900 hover:scale-[1.02] transition-all duration-300 active:scale-95 border border-white/10"
+              >
+                <ShoppingCart className="h-4 w-4 text-amber-300 group-hover:rotate-12 transition-transform" />
+                <span>Katalogga o‘tish</span>
+                <ArrowRight className="h-4 w-4 opacity-70 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              {/* Maxsus Taklif Badge */}
+              <div className="inline-flex items-center gap-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 text-sm font-semibold">
+                <span className={`rounded-xl ${slide.accentColor} px-2.5 py-0.5 text-xs font-black uppercase shadow-sm`}>
+                  {slide.badgeText}
+                </span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-xs text-white/60 line-through">{slide.oldPrice}</span>
+                  <span className="text-base font-extrabold text-white">{slide.newPrice}</span>
+                </div>
               </div>
-              <p className="text-2xl font-black tracking-tight text-white sm:text-3xl font-mono">4.9 / 5</p>
-              <p className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-widest font-bold">Mijozlar Bahosi</p>
             </div>
 
-            {/* Metrika 3 */}
-            <div className="px-4 border-r border-slate-900/60 last:border-0">
-              <div className="flex items-center justify-center text-indigo-400 mb-2.5 mx-auto bg-indigo-500/5 h-10 w-10 rounded-xl border border-indigo-500/10">
-                <Users className="h-5 w-5" />
-              </div>
-              <p className="text-2xl font-black tracking-tight text-white sm:text-3xl font-mono">14K+</p>
-              <p className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-widest font-bold">Doimiy Mualliflar</p>
-            </div>
-
-            {/* Metrika 4 */}
-            <div className="px-4 last:border-0">
-              <div className="flex items-center justify-center text-blue-400 mb-2.5 mx-auto bg-blue-500/5 h-10 w-10 rounded-xl border border-blue-400/10">
-                <Award className="h-5 w-5" />
-              </div>
-              <p className="text-2xl font-black tracking-tight text-white sm:text-3xl font-mono">24/7</p>
-              <p className="text-[10px] text-slate-500 mt-1.5 uppercase tracking-widest font-bold">Muhandislik Yordami</p>
+            {/* Kategoriya Teglari (Pill badges) */}
+            <div className="mt-6 hidden sm:flex flex-wrap items-center gap-2">
+              {slide.categoryBadges.map((badge, idx) => (
+                <span 
+                  key={idx}
+                  className="rounded-xl border border-white/15 bg-white/10 backdrop-blur-sm px-3 py-1 text-xs font-medium text-white/90 hover:bg-white/20 transition-colors"
+                >
+                  {badge}
+                </span>
+              ))}
             </div>
 
           </div>
+
+          {/* ========================================== */}
+          {/* O'NG TOMON: KOMPYUTER / NOUTBUK RASMI (5 Cols) */}
+          {/* ========================================== */}
+          <div className="lg:col-span-5 relative flex items-center justify-center">
+            
+            {/* Rasm Ramkasi (Glass Box) */}
+            <div className="relative w-full max-w-md h-56 sm:h-64 lg:h-80 rounded-3xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md shadow-2xl group">
+              <img 
+                key={slide.id}
+                src={slide.imgUrl} 
+                alt={slide.title}
+                className="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-700 ease-out" 
+              />
+              
+              {/* Rasm ustidagi gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
+
+              {/* Rasm ichidagi xususiyat ko'rsatgichlari */}
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                <FeatureBadge icon={Cpu} text="Top Processor" />
+                <FeatureBadge icon={ShieldCheck} text="2 Yil Kafolat" />
+              </div>
+            </div>
+
+          </div>
+
         </div>
 
-      </div>
+        {/* ========================================== */}
+        {/* 4. NAVIGATSIYA TUGMALARI VA SLIDER CONTROL */}
+        {/* ========================================== */}
+        
+        {/* Chap Chevron */}
+        <button
+          onClick={handlePrev}
+          aria-label="Oldingi slayd"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-20 rounded-full bg-slate-950/30 hover:bg-slate-950/60 border border-white/20 p-2.5 text-white backdrop-blur-md shadow-lg transition-all hover:scale-110 active:scale-95"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+
+        {/* O'ng Chevron */}
+        <button
+          onClick={handleNext}
+          aria-label="Keyingi slayd"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-20 rounded-full bg-slate-950/30 hover:bg-slate-950/60 border border-white/20 p-2.5 text-white backdrop-blur-md shadow-lg transition-all hover:scale-110 active:scale-95"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+
+        {/* Pastki Nuqtali Navigatsiya (Dots Indicator) */}
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 bg-slate-950/30 border border-white/15 backdrop-blur-md px-3 py-1.5 rounded-full">
+          {BANNER_SLIDES.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => {
+                setDirection(index > currentSlide ? 'next' : 'prev');
+                setCurrentSlide(index);
+              }}
+              aria-label={`Slayd ${index + 1}`}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === currentSlide 
+                  ? 'w-7 bg-amber-300' 
+                  : 'w-2 bg-white/40 hover:bg-white/70'
+              }`}
+            />
+          ))}
+        </div>
+
+      </section>
     </div>
   );
 }
