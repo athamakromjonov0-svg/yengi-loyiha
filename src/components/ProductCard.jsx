@@ -182,9 +182,10 @@ export default function ProductCard({ product }) {
               />
             ))}
           </div>
-          <span className="text-[10px] sm:text-[10px] font-mono font-bold text-slate-400 ml-0.5 sm:ml-1">
+          <span className="text-[9px] sm:text-[10px] font-mono font-bold text-slate-400 ml-0.5 sm:ml-1">
             {product.rating || "5.0"}
             <span className="hidden sm:inline"> ({product.reviewsCount || 12} ta sharh)</span>
+            <span className="sm:hidden"> ({product.reviewsCount || 12})</span>
           </span>
         </div>
 
@@ -194,7 +195,7 @@ export default function ProductCard({ product }) {
           </h3>
         </Link>
 
-        <p className="hidden sm:block text-xs text-slate-400 line-clamp-2 leading-relaxed mb-3 flex-1 font-light">
+        <p className="block text-[11px] sm:text-xs text-slate-400 line-clamp-1 sm:line-clamp-2 leading-relaxed mb-3 flex-1 font-light">
           {product.description}
         </p>
 

@@ -3,6 +3,13 @@ import axios from 'axios';
 
 const BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
+// Taym-aut bilan axios instansi — server yetib bo'lmasa (masalan, telefonda
+// localhost) so'rovlar osilib qolmaydi va ilova tezda lokal rejimga o'tadi.
+const api = axios.create({
+  baseURL: BASE,
+  timeout: 10000,
+});
+
 // Lokal zaxira kalitlari — API mavjud bo'lmaganda ma'lumotlar yo'qolmaydi
 const PRODUCTS_KEY = 'vortex_products_local';
 const CATEGORIES_KEY = 'vortex_categories_local';
@@ -55,7 +62,7 @@ const useProducts = (showToast) => {
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`${BASE}/products`);
+      const res = await api.get('/products');
       const data = res.data;
       const all = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
       const normalized = all.map(p => ({ ...p, image: normalizeImage(p.image) }));
@@ -75,7 +82,7 @@ const useProducts = (showToast) => {
 
   const fetchCategories = useCallback(async () => {
     try {
-      const res = await axios.get(`${BASE}/categories`);
+      const res = await api.get('/categories');
       const data = res.data;
       const all = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
       if (all.length > 0) setCategories(all);
@@ -110,7 +117,7 @@ const useProducts = (showToast) => {
     const newCategory = { id: tempId, _id: tempId, ...categoryData };
     setCategories(prev => [...prev, newCategory]);
     try {
-      const res = await axios.post(`${BASE}/categories`, categoryData);
+      const res = await api.post('/categories', categoryData);
       const created = res.data;
       if (created) {
         setCategories(prev => prev.map(c => (c.id === tempId || c._id === tempId) ? created : c));
@@ -127,7 +134,7 @@ const useProducts = (showToast) => {
   const updateCategory = useCallback(async (id, categoryData) => {
     setCategories(prev => prev.map(c => (c.id === id || c._id === id) ? { ...c, ...categoryData } : c));
     try {
-      const res = await axios.put(`${BASE}/categories/${id}`, categoryData);
+      const res = await api.put(`/categories/${id}`, categoryData);
       const updated = res.data;
       if (updated) {
         setCategories(prev => prev.map(c => (c.id === id || c._id === id) ? updated : c));
@@ -144,7 +151,7 @@ const useProducts = (showToast) => {
   const deleteCategory = useCallback(async (id) => {
     setCategories(prev => prev.filter(c => c.id !== id && c._id !== id));
     try {
-      await axios.delete(`${BASE}/categories/${id}`);
+      await api.delete(`/categories/${id}`);
       showToast("Kategoriya o'chirildi", "warning");
       return true;
     } catch (error) {
@@ -165,7 +172,7 @@ const useProducts = (showToast) => {
     };
     setProducts(prev => [...prev, normalized]);
     try {
-      const res = await axios.post(`${BASE}/products`, product);
+      const res = await api.post('/products', product);
       const created = res.data;
       if (created) {
         const serverNorm = { ...created, image: normalizeImage(created.image) };
@@ -183,7 +190,7 @@ const useProducts = (showToast) => {
   const updateProduct = useCallback(async (id, updatedProduct) => {
     setProducts(prev => prev.map(p => (p._id === id || p.id === id) ? { ...p, ...updatedProduct, image: normalizeImage(updatedProduct.image) } : p));
     try {
-      const res = await axios.put(`${BASE}/products/${id}`, updatedProduct);
+      const res = await api.put(`/products/${id}`, updatedProduct);
       const updated = res.data;
       if (updated) {
         const serverNorm = { ...updated, image: normalizeImage(updated.image) };
@@ -201,7 +208,7 @@ const useProducts = (showToast) => {
   const deleteProduct = useCallback(async (id) => {
     setProducts(prev => prev.filter(p => p._id !== id && p.id !== id));
     try {
-      await axios.delete(`${BASE}/products/${id}`);
+      await api.delete(`/products/${id}`);
       showToast("Mahsulot o'chirildi", "warning");
       return true;
     } catch (error) {
@@ -216,7 +223,7 @@ const useProducts = (showToast) => {
     setProducts(prev => prev.filter(p => !idSet.has(p._id || p.id)));
     try {
       for (const id of ids) {
-        await axios.delete(`${BASE}/products/${id}`);
+        await api.delete(`/products/${id}`);
       }
       showToast(`${ids.length} ta mahsulot o'chirildi`, "success");
       return true;

@@ -4,7 +4,7 @@ import { ShoppingBag, ShieldAlert, Loader2, ArrowLeft } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 
 export default function ProtectedRoute({ children, allowedRoles = [] }) {
-  const { isAuthenticated, user, loading: appLoading } = useApp();
+  const { isAuthenticated, user } = useApp();
   const [internalLoading, setInternalLoading] = useState(true);
 
   const location = useLocation();
@@ -14,6 +14,9 @@ export default function ProtectedRoute({ children, allowedRoles = [] }) {
     let isMounted = true;
     const verifySecurityToken = async () => {
       try {
+        // Admin panel mahsulotlar yuklanishini KUTMAYDI — faqat qisqa
+        // xavfsizlik tekshiruvi. Telefonda server (localhost) yetib
+        // bo'lmasa ham admin panel ochiladi.
         await new Promise((resolve) => setTimeout(resolve, 600));
       } catch (error) {
         console.error("Kiber-xavfsizlik tekshiruvida kritik xatolik:", error);
@@ -22,14 +25,12 @@ export default function ProtectedRoute({ children, allowedRoles = [] }) {
       }
     };
 
-    if (!appLoading) {
-      verifySecurityToken();
-    }
+    verifySecurityToken();
     return () => { isMounted = false; };
-  }, [appLoading]);
+  }, []);
 
   // 1-BOSQICH: Yuklanish Holati (Neon Matrix uslubi)
-  if (appLoading || internalLoading) {
+  if (internalLoading) {
     return (
       <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-slate-950 font-sans select-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-emerald-500/10 rounded-full blur-[100px] pointer-events-none animate-pulse" />

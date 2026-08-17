@@ -123,7 +123,7 @@ export default function HeroBanner() {
       <section 
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`relative overflow-hidden rounded-[2.5rem] bg-gradient-to-r ${slide.gradientBg} shadow-2xl transition-all duration-700 min-h-[420px] lg:h-[460px] flex items-center border border-white/15`}
+        className={`relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] bg-gradient-to-r ${slide.gradientBg} shadow-2xl transition-all duration-700 min-h-[380px] sm:min-h-[420px] lg:h-[460px] flex items-center border border-white/15`}
       >
         {/* Visual Noise va Radial Background Pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,_rgba(255,255,255,0.25),_transparent_35%),radial-gradient(circle_at_80%_70%,_rgba(255,255,255,0.15),_transparent_40%)] pointer-events-none" />
@@ -135,7 +135,7 @@ export default function HeroBanner() {
         />
 
         {/* Banner kontent grid strukturasi */}
-        <div className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-12 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-10 lg:px-12 py-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           
           {/* ========================================== */}
           {/* CHAP TOMON: MATNLAR VA TUGMALAR (7 Cols)  */}
@@ -155,10 +155,10 @@ export default function HeroBanner() {
             </div>
 
             {/* Sarlavhalar */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-none text-white drop-shadow-sm">
+            <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-none text-white drop-shadow-sm">
              Parda Aksesuarlari
             </h1>
-            <h2 className="mt-1 text-xl sm:text-2xl lg:text-3xl font-bold text-amber-300/90 tracking-tight">
+            <h2 className="mt-1 text-lg sm:text-2xl lg:text-3xl font-bold text-amber-300/90 tracking-tight">
               Eng Muhumi Sifat
             </h2>
 
@@ -210,7 +210,7 @@ export default function HeroBanner() {
           <div className="lg:col-span-5 relative flex items-center justify-center">
             
             {/* Rasm Ramkasi (Glass Box) */}
-            <div className="relative w-full max-w-md h-56 sm:h-64 lg:h-80 rounded-3xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md shadow-2xl group">
+            <div className="relative w-full max-w-md h-48 sm:h-64 lg:h-80 rounded-3xl overflow-hidden border border-white/20 bg-white/10 backdrop-blur-md shadow-2xl group">
               <img 
                 key={slide.id}
                 src={slide.imgUrl} 

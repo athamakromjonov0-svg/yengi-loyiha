@@ -7,6 +7,11 @@
    ============================================================ */
 html {
   background-color: #0d0c0a;
+  /* Gorizontal oqib ketishni oldini olish — mobil ekranlarda
+     hech qanday element sahifani kengaytirib yubormaydi.
+     overflow-x: clip sticky elementlarni buzmaydi (hidden esa buzadi). */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {
@@ -14,6 +19,14 @@ body {
   background-color: #0d0c0a;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* Sarlavhalar uchun serif (Playfair Display) — hashamat hissi */

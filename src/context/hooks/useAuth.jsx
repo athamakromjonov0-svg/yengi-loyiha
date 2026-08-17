@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { signInWithGoogle, signOutUser, onAuthStateChange, signInWithEmail } from '../../firebase';
+import { signInWithGoogle, completeGoogleRedirect, signOutUser, onAuthStateChange, signInWithEmail } from '../../firebase';
 
 const useAuth = (showToast) => {
   const [user, setUser] = useState(() => {
@@ -63,6 +63,27 @@ const useAuth = (showToast) => {
     return () => window.removeEventListener('storage', syncFromStorage);
   }, []);
 
+  // Admin email — .env orqali (VITE_ADMIN_EMAIL) yoki standart qiymat
+  const isAdminEmail = useCallback((email) => {
+    const adminEmail = import.meta.env.VITE_ADMIN_EMAIL || 'admin@premium.com';
+    return !!email && String(email).trim().toLowerCase() === adminEmail.trim().toLowerCase();
+  }, []);
+
+  // Firebase/Google orqali admin email bilan kirilsa — admin panelga ham ruxsat berish
+  const applyAdminAuth = useCallback((userObj) => {
+    const adminUser = {
+      email: userObj.email,
+      role: 'admin',
+      name: 'Admin Terminal',
+      uid: userObj.uid,
+      photoURL: userObj.photoURL || null,
+    };
+    setIsAuthenticated(true);
+    setUser(adminUser);
+    localStorage.setItem('isAdminAuthenticated', 'true');
+    localStorage.setItem('vortex_user', JSON.stringify(adminUser));
+  }, []);
+
   const login = useCallback(async (email, password) => {
     const now = Date.now();
     
@@ -75,8 +96,8 @@ const useAuth = (showToast) => {
     try {
       const userData = await signInWithEmail(email, password);
       
-      const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
-      const isAdmin = userData.email === adminEmail;
+      // Admin email (env yoki admin@premium.com) bilan kirilsa — admin roli
+      const isAdmin = isAdminEmail(userData.email);
       
       const mockUser = {
         email: userData.email,
@@ -147,7 +168,7 @@ const useAuth = (showToast) => {
       }
       return false;
     }
-  }, [loginAttempts, loginLockedUntil, showToast]);
+  }, [loginAttempts, loginLockedUntil, showToast, isAdminEmail]);
 
   const logout = useCallback(() => {
     setIsAuthenticated(false);
@@ -205,6 +226,11 @@ const useAuth = (showToast) => {
   const loginWithGoogle = useCallback(async () => {
     try {
       const userData = await signInWithGoogle();
+
+      // Mobil/iframe rejimda redirect boshlandi — sahifa Google'ga yo'naltiriladi
+      // va qaytganida completeGoogleRedirect() kirishni yakunlaydi.
+      if (!userData) return true;
+
       const userObj = {
         uid: userData.uid,
         email: userData.email,
@@ -216,6 +242,12 @@ const useAuth = (showToast) => {
       setSiteUser(userObj);
       localStorage.setItem('isSiteAuthenticated', 'true');
       localStorage.setItem('site_user', JSON.stringify(userObj));
+
+      // Admin email bilan kirilsa — admin panelga ham ruxsat
+      if (isAdminEmail(userData.email)) {
+        applyAdminAuth(userObj);
+      }
+
       showToast("Google akkaunt muvaffaqiyatli ulandi!", "success");
       return true;
     } catch (error) {
@@ -232,7 +264,7 @@ const useAuth = (showToast) => {
       showToast(message, "error");
       return false;
     }
-  }, [showToast]);
+  }, [showToast, applyAdminAuth, isAdminEmail]);
 
   const siteLogout = useCallback(async () => {
     try {
@@ -261,6 +293,11 @@ const useAuth = (showToast) => {
         setSiteUser(userObj);
         localStorage.setItem('isSiteAuthenticated', 'true');
         localStorage.setItem('site_user', JSON.stringify(userObj));
+
+        // Firebase'da admin email bilan sessiya mavjud bo'lsa ham admin panel ochiladi
+        if (isAdminEmail(firebaseUser.email)) {
+          applyAdminAuth(userObj);
+        }
       } else {
         setIsSiteAuthenticated(false);
         setSiteUser(null);
@@ -269,7 +306,38 @@ const useAuth = (showToast) => {
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [applyAdminAuth, isAdminEmail]);
+
+  // Google redirect (mobil qurilmalar) orqali qaytgan natijani yakunlash
+  useEffect(() => {
+    let active = true;
+    completeGoogleRedirect()
+      .then((userData) => {
+        if (!active || !userData) return;
+        const userObj = {
+          uid: userData.uid,
+          email: userData.email,
+          name: userData.name || 'Foydalanuvchi',
+          photoURL: userData.photoURL || null,
+          role: 'user',
+        };
+        setIsSiteAuthenticated(true);
+        setSiteUser(userObj);
+        localStorage.setItem('isSiteAuthenticated', 'true');
+        localStorage.setItem('site_user', JSON.stringify(userObj));
+
+        // Admin email bilan qaytgan bo'lsa — admin panelga ham ruxsat
+        if (isAdminEmail(userData.email)) {
+          applyAdminAuth(userObj);
+        }
+
+        showToast("Google akkaunt muvaffaqiyatli ulandi!", "success");
+      })
+      .catch((error) => {
+        console.error('Google redirect login xatosi:', error);
+      });
+    return () => { active = false; };
+  }, [applyAdminAuth, showToast, isAdminEmail]);
 
   return {
     user, isAuthenticated, siteUser, isSiteAuthenticated,

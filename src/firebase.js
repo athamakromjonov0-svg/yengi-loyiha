@@ -3,6 +3,8 @@ import {
   getAuth, 
   GoogleAuthProvider, 
   signInWithPopup, 
+  signInWithRedirect,
+  getRedirectResult,
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword,
   signOut,
@@ -34,9 +36,26 @@ export const auth = getAuth(app);
 // Google Auth provider
 export const googleProvider = new GoogleAuthProvider();
 
+// Mobil qurilma yoki ichki (iframe/webview) muhitni aniqlash.
+// Bunday muhitlarda popup oynasi ko'pincha bloklanadi yoki ochilmaydi —
+// shuning uchun redirect (sahifani qayta yo'naltirish) usulidan foydalanamiz.
+export const isMobileDevice = () => {
+  if (typeof window === 'undefined') return false;
+  if (window.innerWidth < 768) return true;
+  if (window.self !== window.top) return true; // iframe ichida ochilgan
+  return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || '');
+};
+
 // Google orqali kirish
 export const signInWithGoogle = async () => {
   try {
+    // Mobil / iframe muhitda popup ishlamaydi — redirect ishlatamiz
+    if (isMobileDevice()) {
+      await signInWithRedirect(auth, googleProvider);
+      // Sahifa Google'ga yo'naltiriladi; qaytganida
+      // completeGoogleRedirect() natijani yakunlaydi
+      return null;
+    }
     const result = await signInWithPopup(auth, googleProvider);
     const user = result.user;
     return {
@@ -47,6 +66,24 @@ export const signInWithGoogle = async () => {
     };
   } catch (error) {
     console.error('Google login xatosi:', error);
+    throw error;
+  }
+};
+
+// Redirect orqali qaytgan Google natijasini yakunlash
+export const completeGoogleRedirect = async () => {
+  try {
+    const result = await getRedirectResult(auth);
+    if (!result || !result.user) return null;
+    const user = result.user;
+    return {
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName,
+      photoURL: user.photoURL,
+    };
+  } catch (error) {
+    console.error('Google redirect natijasini yakunlashda xatolik:', error);
     throw error;
   }
 };
