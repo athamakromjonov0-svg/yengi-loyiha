@@ -8,5 +8,17 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        // Katta kutubxonalarni alohida chunk'larga ajratamiz —
+        // brauzer ularni keshlaydi va keyingi yuklanishlar tezlashadi.
+        manualChunks: {
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'firebase-vendor': ['firebase/app', 'firebase/auth'],
+        },
+      },
+    },
+  },
 })
