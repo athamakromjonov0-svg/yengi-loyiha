@@ -16,7 +16,7 @@ export default function NotFoundPage() {
 
     const logs = [
       "CRITICAL: HTTP_STATUS_CODE_404 -> ROUTE_NOT_FOUND",
-      "CORE::VORTEX_GATEWAY: Skanerlash boshlandi...",
+      "CORE::GRAND_DECOR_GATEWAY: Skanerlash boshlandi...",
       "SYSTEM_MESH: Kiber-xarita indekslari tekshirilmoqda...",
       "WARNING: So'ralgan resurs klaster xaritasida mavjud emas.",
       "FAIL: Ingestion pipeline terminates prematurely.",
@@ -34,7 +34,7 @@ export default function NotFoundPage() {
     <div className="flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center px-4 text-center font-sans select-none text-white relative bg-slate-950 overflow-hidden">
       
       {/* ORQA FON MATRITSA VA KIBER-SETKA EFFEKTLARI */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1c1914_1px,transparent_1px),linear-gradient(to_bottom,#1c1914_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-40" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[450px] h-[450px] bg-rose-500/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="w-full max-w-xl space-y-8 relative z-10">

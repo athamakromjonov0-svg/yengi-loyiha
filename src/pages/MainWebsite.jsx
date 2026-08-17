@@ -351,7 +351,7 @@ export default function MainWebsite() {
       {/* ============================================================
       KIBER-FON CHIZIQLARI VA PLAZMA MATRITSASI
       ============================================================ */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none opacity-20 -z-10" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1c1914_1px,transparent_1px),linear-gradient(to_bottom,#1c1914_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none opacity-20 -z-10" />
 
       {/* ============================================================
       BREKDOWN: YUQORI STATISTIK PANEL
@@ -458,7 +458,7 @@ export default function MainWebsite() {
               Barcha chegirmalar <ChevronRight className="h-3.5 w-3.5" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {flashSaleProducts.map((product) => (
               <ProductCard key={product._id || product.id} product={product} />
             ))}
@@ -511,7 +511,7 @@ export default function MainWebsite() {
             activeTab === 'CATALOG' ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
           }`}
         >
-          {activeTab === 'CATALOG' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_10px_#34d399]" />}
+          {activeTab === 'CATALOG' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-400 shadow-[0_0_10px_#FFC107]" />}
           <Grid3X3 className="h-4 w-4" /> BARCHA TOVARLAR MATRIXI
         </button>
         
@@ -521,7 +521,7 @@ export default function MainWebsite() {
             activeTab === 'EXCLUSIVE' ? 'text-rose-400' : 'text-slate-500 hover:text-slate-300'
           }`}
         >
-          {activeTab === 'EXCLUSIVE' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-rose-500 shadow-[0_0_10px_#f43f5e]" />}
+          {activeTab === 'EXCLUSIVE' && <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-rose-500 shadow-[0_0_10px_#E5B20D]" />}
           <TrendingUp className="h-4 w-4" /> EKSKLYUZIV KIBER CHEGIRMALAR
         </button>
 
@@ -612,7 +612,7 @@ export default function MainWebsite() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`rounded-xl px-4 py-2 text-[10px] font-bold uppercase tracking-wider border whitespace-nowrap transition-all active:scale-[0.97] ${
                   isSelected
-                    ? 'bg-emerald-500 border-emerald-500 text-slate-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                    ? 'bg-emerald-500 border-emerald-500 text-slate-950 font-black shadow-[0_0_15px_rgba(255,193,7,0.3)]'
                     : 'bg-slate-950/80 border-slate-900 text-slate-400 hover:text-white hover:border-slate-800'
                 }`}
               >
@@ -624,7 +624,7 @@ export default function MainWebsite() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`rounded-xl px-4 py-2 text-[10px] font-bold uppercase tracking-wider border whitespace-nowrap transition-all active:scale-[0.97] ${
                   isSelected
-                    ? 'bg-emerald-500 border-emerald-500 text-slate-950 font-black shadow-[0_0_15px_rgba(16,185,129,0.2)]'
+                    ? 'bg-emerald-500 border-emerald-500 text-slate-950 font-black shadow-[0_0_15px_rgba(255,193,7,0.3)]'
                     : 'bg-slate-950/80 border-slate-900 text-slate-400 hover:text-white hover:border-slate-800'
                 }`}
               >
@@ -702,9 +702,9 @@ export default function MainWebsite() {
 
       {/* 4. ASOSIY MAHSULOTLAR GRIDI YOKI SKELETON INTEGRATSIYASI */}
       {loading ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="animate-pulse border border-slate-900 bg-slate-950/20 rounded-2xl p-4 flex flex-col gap-4 relative overflow-hidden h-[520px]">
+            <div key={i} className="animate-pulse border border-slate-900 bg-slate-950/20 rounded-2xl p-4 flex flex-col gap-4 relative overflow-hidden h-72 sm:h-[520px]">
               <div className="aspect-square w-full rounded-xl bg-slate-900/60 border border-slate-900/80" />
               <div className="space-y-3 flex-1 mt-2">
                 <div className="h-4 bg-slate-900 rounded w-1/3" />
@@ -738,7 +738,7 @@ export default function MainWebsite() {
       ) : (
         <>
           {viewMode === 'grid' ? (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
               {paginatedProducts.map((product) => (
                 <ProductCard key={product._id || product.id} product={product} />
               ))}
@@ -796,11 +796,11 @@ export default function MainWebsite() {
             <h2 className="text-lg font-black uppercase tracking-widest">
               Yangi <span className="text-amber-400">Kelganlar</span>
             </h2>
-            <Link to="/" className="ml-auto text-[10px] font-bold text-slate-500 hover:text-white flex items-center gap-1">
+            <Link to="/yangi-kelganlar" className="ml-auto text-[10px] font-bold text-slate-500 hover:text-white flex items-center gap-1">
               Hammasi <ChevronRight className="h-3 w-3" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {newProducts.map((product) => (
               <ProductCard key={product._id || product.id} product={product} />
             ))}
@@ -822,7 +822,7 @@ export default function MainWebsite() {
               ENG YAXSHILAR
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {topRatedProducts.map((product) => (
               <ProductCard key={product._id || product.id} product={product} />
             ))}
@@ -844,7 +844,7 @@ export default function MainWebsite() {
               SHOSHILINCH!
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
             {lowStockProducts.map((product) => (
               <ProductCard key={product._id || product.id} product={product} />
             ))}
@@ -864,7 +864,7 @@ export default function MainWebsite() {
               {recentlyViewed.length} TA
             </span>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-5">
             {recentlyViewed.slice(0, 5).map((product) => (
               <ProductCard key={product._id || product.id} product={product} />
             ))}

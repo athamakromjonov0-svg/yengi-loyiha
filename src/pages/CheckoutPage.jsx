@@ -48,7 +48,7 @@ export default function CheckoutPage() {
     applyCoupon,
     removeCoupon,
     bonusPoints,
-    useBonusPoints,
+    spendBonusPoints,
     deliveryZones,
     selectedDeliveryZone,
     setSelectedDeliveryZone,
@@ -180,7 +180,7 @@ export default function CheckoutPage() {
     if (!order) return;
 
     if (useBonus) {
-      useBonusPoints?.(Math.round(bonusDiscount / 1000));
+      spendBonusPoints?.(Math.round(bonusDiscount / 1000));
     }
 
     clearCart();
@@ -204,7 +204,7 @@ export default function CheckoutPage() {
             Buyurtma rasmiylashtirish uchun avval savatga mahsulot qo'shing.
           </p>
           <Link
-            to="/"
+            to="/katalog"
             className="inline-flex items-center gap-2 rounded-xl bg-emerald-400 px-6 py-3.5 text-xs font-black uppercase tracking-wider text-slate-950 hover:bg-emerald-300 transition-all"
           >
             <ArrowLeft className="h-4 w-4" /> Katalogga qaytish
@@ -246,7 +246,7 @@ export default function CheckoutPage() {
             <div key={step.num} className="flex items-center gap-2">
               <button
                 onClick={() => setActiveStep(step.num)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl border text-xs font-black uppercase tracking-wider transition-all ${
+                className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-xl border text-xs font-black uppercase tracking-wider transition-all ${
                   activeStep === step.num
                     ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-400'
                     : activeStep > step.num
@@ -259,7 +259,7 @@ export default function CheckoutPage() {
                 <span className="text-[9px] font-mono">{step.num}/3</span>
               </button>
               {idx < steps.length - 1 && (
-                <div className={`h-px w-8 ${activeStep > step.num ? 'bg-emerald-500/40' : 'bg-slate-900'}`} />
+                <div className={`h-px w-4 sm:w-8 ${activeStep > step.num ? 'bg-emerald-500/40' : 'bg-slate-900'}`} />
               )}
             </div>
           ))}

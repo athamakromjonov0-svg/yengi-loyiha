@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   ShoppingCart, 
   ChevronLeft, 
@@ -30,11 +31,10 @@ const BANNER_SLIDES = [
     newPrice: "$1,199",
     rating: 4.9,
     categoryBadges: ['Noutbuklar', 'Stol kompyuterlar', 'Monitorlar', 'Aksessuarlar'],
-    // Yuqori sifatli noutbuk rasmi (PNG / Transparent look)
-    imgUrl: "https://images.unsplash.com/photo-1603302576837-37561b2fe18d?q=80&w=1000&auto=format&fit=crop",
-    gradientBg: "from-violet-700 via-purple-600 to-indigo-900",
+    imgUrl: "/banner/banner1.png",
+    gradientBg: "from-[#FFC107] via-[#B08A00] to-[#1A1208]",
     accentColor: "bg-amber-400 text-slate-950",
-    glowColor: "rgba(139, 92, 246, 0.4)"
+    glowColor: "rgba(255, 193, 7, 0.4)"
   },
   {
     id: 2,
@@ -47,10 +47,10 @@ const BANNER_SLIDES = [
     newPrice: "$1,785",
     rating: 5.0,
     categoryBadges: ['4K Monitorlar', 'Workstation', 'Klaviaturalar', 'Sichqonchalar'],
-    imgUrl: "https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1000&auto=format&fit=crop",
-    gradientBg: "from-blue-700 via-indigo-600 to-slate-900",
-    accentColor: "bg-cyan-400 text-slate-950",
-    glowColor: "rgba(59, 130, 246, 0.4)"
+    imgUrl: "/banner/banner2.png",
+    gradientBg: "from-[#8F6E00] via-[#3B2C08] to-[#0D0C0A]",
+    accentColor: "bg-amber-400 text-slate-950",
+    glowColor: "rgba(150, 120, 26, 0.4)"
   },
   {
     id: 3,
@@ -63,10 +63,10 @@ const BANNER_SLIDES = [
     newPrice: "$245",
     rating: 4.8,
     categoryBadges: ['RGB Klaviatura', 'Gaming Mouse', 'Naushnik', 'Mikrofon'],
-    imgUrl: "https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?q=80&w=1000&auto=format&fit=crop",
-    gradientBg: "from-rose-600 via-orange-600 to-amber-700",
-    accentColor: "bg-yellow-300 text-slate-950",
-    glowColor: "rgba(244, 63, 94, 0.4)"
+    imgUrl: "/banner/banner3.png",
+    gradientBg: "from-[#E5B20D] via-[#8F6E00] to-[#0A0806]",
+    accentColor: "bg-amber-400 text-slate-950",
+    glowColor: "rgba(197, 160, 40, 0.4)"
   }
 ];
 
@@ -156,27 +156,27 @@ export default function HeroBanner() {
 
             {/* Sarlavhalar */}
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-none text-white drop-shadow-sm">
-              {slide.title}
+             Parda Aksesuarlari
             </h1>
             <h2 className="mt-1 text-xl sm:text-2xl lg:text-3xl font-bold text-amber-300/90 tracking-tight">
-              {slide.highlightTitle}
+              Eng Muhumi Sifat
             </h2>
 
             {/* Qisqa Tavsif */}
             <p className="mt-3 text-sm sm:text-base text-white/85 max-w-xl line-clamp-2 leading-relaxed font-normal">
-              {slide.description}
+             Bizda har doim birinchi qol va eng sifatli va arzon Parda Aksesuarlari
             </p>
 
             {/* Narxlar va CTA Tugmasi */}
             <div className="mt-6 flex flex-wrap items-center gap-4">
-              <button
-                onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
+              <Link
+                to="/katalog"
                 className="group relative inline-flex items-center justify-center gap-2.5 rounded-2xl bg-slate-950 px-6 py-3 text-sm font-bold text-white shadow-xl shadow-slate-950/40 hover:bg-slate-900 hover:scale-[1.02] transition-all duration-300 active:scale-95 border border-white/10"
               >
                 <ShoppingCart className="h-4 w-4 text-amber-300 group-hover:rotate-12 transition-transform" />
                 <span>Katalogga o‘tish</span>
                 <ArrowRight className="h-4 w-4 opacity-70 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </Link>
 
               {/* Maxsus Taklif Badge */}
               <div className="inline-flex items-center gap-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 px-4 py-2 text-sm font-semibold">
@@ -184,8 +184,8 @@ export default function HeroBanner() {
                   {slide.badgeText}
                 </span>
                 <div className="flex items-baseline gap-1.5">
-                  <span className="text-xs text-white/60 line-through">{slide.oldPrice}</span>
-                  <span className="text-base font-extrabold text-white">{slide.newPrice}</span>
+                  <span className="text-xs text-white/60 line-through">$25</span>
+                  <span className="text-base font-extrabold text-white">$15</span>
                 </div>
               </div>
             </div>

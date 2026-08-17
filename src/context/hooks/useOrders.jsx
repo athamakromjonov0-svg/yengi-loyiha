@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 const ORDERS_KEYS = {
   orders: 'vortex_orders',
@@ -9,6 +9,7 @@ const ORDERS_KEYS = {
   bonusPoints: 'vortex_bonus_points',
   payment: 'vortex_payment',
   selectedZone: 'vortex_selected_zone',
+  deliveryZones: 'vortex_delivery_zones',
   users: 'vortex_admin_users',
   activityLog: 'vortex_activity_log',
 };
@@ -52,7 +53,10 @@ const useOrders = (showToast) => {
     catch { return []; }
   });
 
-  const [deliveryZones, setDeliveryZones] = useState(DEFAULT_DELIVERY_ZONES);
+  const [deliveryZones, setDeliveryZones] = useState(() => {
+    try { return JSON.parse(localStorage.getItem(ORDERS_KEYS.deliveryZones)) || DEFAULT_DELIVERY_ZONES; }
+    catch { return DEFAULT_DELIVERY_ZONES; }
+  });
 
   const [selectedDeliveryZone, setSelectedDeliveryZone] = useState(() => {
     return localStorage.getItem(ORDERS_KEYS.selectedZone) || 'zone-1';
@@ -96,7 +100,13 @@ const useOrders = (showToast) => {
     catch { return DEFAULT_ACTIVITIES; }
   });
 
-  useEffect(() => { localStorage.setItem(ORDERS_KEYS.orders, JSON.stringify(orders)); }, [orders]);
+  // REAL VAQT: yangi buyurtmalarni aniqlash uchun ma'lum ID'lar xotirasi
+  const knownOrderIds = useRef(new Set(orders.map(o => o.id)));
+
+  useEffect(() => {
+    localStorage.setItem(ORDERS_KEYS.orders, JSON.stringify(orders));
+    knownOrderIds.current = new Set(orders.map(o => o.id));
+  }, [orders]);
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.addresses, JSON.stringify(addresses)); }, [addresses]);
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.cards, JSON.stringify(savedCards)); }, [savedCards]);
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.coupons, JSON.stringify(coupons)); }, [coupons]);
@@ -104,8 +114,80 @@ const useOrders = (showToast) => {
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.bonusPoints, String(bonusPoints)); }, [bonusPoints]);
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.payment, paymentMethod); }, [paymentMethod]);
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.selectedZone, selectedDeliveryZone); }, [selectedDeliveryZone]);
+  useEffect(() => { localStorage.setItem(ORDERS_KEYS.deliveryZones, JSON.stringify(deliveryZones)); }, [deliveryZones]);
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.users, JSON.stringify(users)); }, [users]);
   useEffect(() => { localStorage.setItem(ORDERS_KEYS.activityLog, JSON.stringify(activityLog)); }, [activityLog]);
+
+  // REAL VAQT: boshqa oynalardagi barcha o'zgarishlarni darhol qabul qilish
+  useEffect(() => {
+    const syncFromStorage = (e) => {
+      const { key, newValue } = e;
+
+      if (key === ORDERS_KEYS.orders) {
+        if (newValue === null) { setOrders([]); knownOrderIds.current = new Set(); return; }
+        try {
+          const parsed = JSON.parse(newValue);
+          if (Array.isArray(parsed)) {
+            // Yangi buyurtma kelganda adminni darhol xabardor qilamiz
+            const newOnes = parsed.filter(o => !knownOrderIds.current.has(o.id));
+            if (newOnes.length > 0 && knownOrderIds.current.size > 0) {
+              showToast(`${newOnes.length} ta yangi buyurtma qabul qilindi!`, 'success');
+            }
+            knownOrderIds.current = new Set(parsed.map(o => o.id));
+            setOrders(parsed);
+          }
+        } catch { /* ignore */ }
+        return;
+      }
+      if (key === ORDERS_KEYS.coupons) {
+        if (newValue === null) { setCoupons([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setCoupons(parsed); } catch { /* ignore */ }
+        return;
+      }
+      if (key === ORDERS_KEYS.deliveryZones) {
+        if (newValue === null) { setDeliveryZones([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setDeliveryZones(parsed); } catch { /* ignore */ }
+        return;
+      }
+      if (key === ORDERS_KEYS.users) {
+        if (newValue === null) { setUsers([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setUsers(parsed); } catch { /* ignore */ }
+        return;
+      }
+      if (key === ORDERS_KEYS.activityLog) {
+        if (newValue === null) { setActivityLog([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setActivityLog(parsed); } catch { /* ignore */ }
+        return;
+      }
+      if (key === ORDERS_KEYS.appliedCoupon) {
+        try { setAppliedCoupon(newValue ? JSON.parse(newValue) : null); } catch { setAppliedCoupon(null); }
+        return;
+      }
+      if (key === ORDERS_KEYS.bonusPoints) {
+        setBonusPoints(Number(newValue) || 0);
+        return;
+      }
+      if (key === ORDERS_KEYS.payment && newValue) {
+        setPaymentMethod(newValue);
+        return;
+      }
+      if (key === ORDERS_KEYS.selectedZone && newValue) {
+        setSelectedDeliveryZone(newValue);
+        return;
+      }
+      if (key === ORDERS_KEYS.addresses) {
+        if (newValue === null) { setAddresses([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setAddresses(parsed); } catch { /* ignore */ }
+        return;
+      }
+      if (key === ORDERS_KEYS.cards) {
+        if (newValue === null) { setSavedCards([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setSavedCards(parsed); } catch { /* ignore */ }
+      }
+    };
+    window.addEventListener('storage', syncFromStorage);
+    return () => window.removeEventListener('storage', syncFromStorage);
+  }, [showToast]);
 
   const createOrder = useCallback((cartItems, orderInfo = {}) => {
     if (!Array.isArray(cartItems) || cartItems.length === 0) return null;
@@ -273,7 +355,7 @@ const useOrders = (showToast) => {
     }
   }, []);
 
-  const useBonusPoints = useCallback((points) => {
+  const spendBonusPoints = useCallback((points) => {
     if (points > bonusPoints) return false;
     setBonusPoints(prev => prev - points);
     showToast(`${points} bonus bal ishlatildi`, "success");
@@ -316,6 +398,38 @@ const useOrders = (showToast) => {
     return newActivity;
   }, []);
 
+  // Yetkazib berish zonasini yangilash
+  const updateDeliveryZone = useCallback((id, zoneData) => {
+    setDeliveryZones(prev => prev.map(z => z.id === id ? { ...z, ...zoneData } : z));
+    showToast("Yetkazib berish zonasi yangilandi", "success");
+    return true;
+  }, [showToast]);
+
+  // Yangi zona qo'shish
+  const addDeliveryZone = useCallback((zoneData) => {
+    const newZone = {
+      id: `zone-${Date.now()}`,
+      ...zoneData,
+    };
+    setDeliveryZones(prev => [...prev, newZone]);
+    showToast("Yangi zona qo'shildi", "success");
+    return newZone;
+  }, [showToast]);
+
+  // Zonani o'chirish
+  const deleteDeliveryZone = useCallback((id) => {
+    setDeliveryZones(prev => prev.filter(z => z.id !== id));
+    showToast("Zona o'chirildi", "warning");
+    return true;
+  }, [showToast]);
+
+  // Lokal ma'lumotlarni tozalashda zonalarni ham tiklash
+  const resetDeliveryZones = useCallback(() => {
+    setDeliveryZones(DEFAULT_DELIVERY_ZONES);
+    showToast("Zonalar standart holatga qaytarildi", "info");
+    return true;
+  }, [showToast]);
+
   return {
     orders, addresses, savedCards, coupons, appliedCoupon, bonusPoints,
     paymentMethod, deliveryZones, selectedDeliveryZone,
@@ -325,8 +439,9 @@ const useOrders = (showToast) => {
     addAddress, updateAddress, deleteAddress, setDefaultAddress,
     addCard, deleteCard, setDefaultCard,
     applyCoupon, removeCoupon, addCoupon, updateCoupon, deleteCoupon,
-    addBonusPoints, useBonusPoints,
+    addBonusPoints, spendBonusPoints,
     addUser, updateUser, deleteUser, addActivityLog,
+    updateDeliveryZone, addDeliveryZone, deleteDeliveryZone, resetDeliveryZones,
   };
 };
 

@@ -10,7 +10,7 @@ export default function WishlistPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-32 font-sans text-white relative min-h-screen">
       {/* Orqa fon */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none opacity-20 -z-10" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1c1914_1px,transparent_1px),linear-gradient(to_bottom,#1c1914_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none opacity-20 -z-10" />
 
       {/* Yuqori panel */}
       <div className="pt-10 mb-8">
@@ -37,14 +37,14 @@ export default function WishlistPage() {
             Sevimli mahsulotlaringizga yulduzcha belgisi bilan qo'shishingiz mumkin. Ularni bu erda topasiz.
           </p>
           <Link
-            to="/"
+            to="/katalog"
             className="mt-6 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold text-[10px] uppercase font-mono tracking-widest rounded-xl border border-slate-800 transition active:scale-95"
           >
             Katalogga o'tish
           </Link>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
           {wishlist.map((product) => (
             <ProductCard key={product._id || product.id} product={product} />
           ))}

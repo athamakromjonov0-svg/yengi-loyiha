@@ -42,7 +42,7 @@ export default function ProtectedRoute({ children, allowedRoles = [] }) {
 
           <div className="text-center">
             <h2 className="text-sm font-black tracking-widest text-white uppercase font-mono">
-              VORTEX<span className="text-emerald-400 font-normal">.uz</span>
+              GRAND<span className="text-amber-400 font-normal">DECOR</span>
             </h2>
             <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider mt-1.5 font-mono animate-pulse">
               SECURE_GATEWAY_CHECKING...

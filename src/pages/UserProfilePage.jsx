@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
 import { 
   User, 
@@ -163,7 +163,6 @@ export default function UserProfilePage() {
   ];
 
   const settingsOptions = [
-    { key: 'darkMode', label: 'Qorong\'u rejim', desc: 'Saytning qorong\'u ko\'rinishi', icon: Eye },
     { key: 'notifications', label: 'Bildirishnomalar', desc: 'Umumiy bildirishnomalar', icon: Bell },
     { key: 'autoSave', label: 'Avtomatik saqlash', desc: 'Ma\'lumotlarni avtomatik saqlash', icon: Save },
   ];
@@ -171,7 +170,7 @@ export default function UserProfilePage() {
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-slate-950 font-sans select-none relative overflow-hidden">
       {/* ORQA FON */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-30" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1c1914_1px,transparent_1px),linear-gradient(to_bottom,#1c1914_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-30" />
       <div className="absolute -top-24 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse" />
 
       <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-10">
@@ -882,9 +881,12 @@ export default function UserProfilePage() {
                     Har bir xaridda bonus ballar yig'ing, maxsus chegirmalardan foydalaning va
                     shaxsiy menejer bilan bepul maslahat oling.
                   </p>
-                  <button className="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-emerald-400 px-4 py-2 text-[10px] font-black text-slate-950 uppercase tracking-widest hover:bg-emerald-300 transition-colors">
+                  <Link
+                    to="/bonus-dasturi"
+                    className="mt-3 inline-flex items-center gap-1.5 rounded-xl bg-emerald-400 px-4 py-2 text-[10px] font-black text-slate-950 uppercase tracking-widest hover:bg-emerald-300 transition-colors"
+                  >
                     Batafsil ma'lumot
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

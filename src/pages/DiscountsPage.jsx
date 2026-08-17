@@ -17,7 +17,7 @@ export default function DiscountsPage() {
   return (
     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-32 font-sans text-white relative min-h-screen">
       {/* Orqa fon */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none opacity-20 -z-10" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1c1914_1px,transparent_1px),linear-gradient(to_bottom,#1c1914_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_60%,transparent_100%)] pointer-events-none opacity-20 -z-10" />
 
       {/* Yuqori panel */}
       <div className="pt-10 mb-8">
@@ -35,9 +35,9 @@ export default function DiscountsPage() {
 
       {/* Chegirmali mahsulotlar */}
       {loading ? (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
           {[...Array(6)].map((_, i) => (
-            <div key={i} className="animate-pulse border border-slate-900 bg-slate-950/20 rounded-2xl p-4 flex flex-col gap-4 h-[520px]">
+            <div key={i} className="animate-pulse border border-slate-900 bg-slate-950/20 rounded-2xl p-4 flex flex-col gap-4 h-72 sm:h-[520px]">
               <div className="aspect-square w-full rounded-xl bg-slate-900/60" />
               <div className="space-y-3 flex-1">
                 <div className="h-4 bg-slate-900 rounded w-1/3" />
@@ -59,7 +59,7 @@ export default function DiscountsPage() {
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
           {discountedProducts.map((product) => (
             <ProductCard key={product._id || product.id} product={product} />
           ))}

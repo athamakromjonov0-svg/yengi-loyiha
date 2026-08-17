@@ -43,7 +43,7 @@ export default function LoginPage() {
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-12 sm:px-6 lg:px-8 font-sans select-none text-slate-100 relative overflow-hidden bg-slate-950">
 
       {/* ORQA FON EFFEKTLARI */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#0f172a_1px,transparent_1px),linear-gradient(to_bottom,#0f172a_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-30" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1c1914_1px,transparent_1px),linear-gradient(to_bottom,#1c1914_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none opacity-30" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-[130px] pointer-events-none animate-pulse duration-[4000ms]" />
 
       {/* CARD SHILD */}
@@ -117,7 +117,7 @@ export default function LoginPage() {
           {/* TEZKOR AVTO-TO'LDIRISH SHIELD (NEON GLOW) */}
           <div
             onClick={handleQuickInject}
-            className="group border border-slate-900 bg-slate-950/90 hover:border-emerald-500/30 rounded-xl p-3.5 text-[11px] text-slate-400 leading-relaxed cursor-pointer transition-all duration-300 select-none relative overflow-hidden hover:shadow-[0_0_20px_rgba(52,211,153,0.03)]"
+            className="group border border-slate-900 bg-slate-950/90 hover:border-emerald-500/30 rounded-xl p-3.5 text-[11px] text-slate-400 leading-relaxed cursor-pointer transition-all duration-300 select-none relative overflow-hidden hover:shadow-[0_0_20px_rgba(255,193,7,0.08)]"
             title="Kiber-ma'lumotlarni avtomatik joylash"
           >
             <div className="absolute top-0 right-0 p-2 opacity-10 group-hover:opacity-40 transition-opacity duration-300 text-emerald-400">

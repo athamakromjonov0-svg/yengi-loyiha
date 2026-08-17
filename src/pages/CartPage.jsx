@@ -42,7 +42,7 @@ export default function CartPage() {
     applyCoupon,
     removeCoupon,
     bonusPoints,
-    useBonusPoints,
+    spendBonusPoints,
     deliveryZones,
     selectedDeliveryZone,
     setSelectedDeliveryZone,
@@ -132,7 +132,7 @@ export default function CartPage() {
             Kiber-savat modulingiz hozircha bo'sh. Katalogdan mahsulot tanlab, savatga qo'shing.
           </p>
           <Link
-            to="/"
+            to="/katalog"
             className="inline-flex items-center gap-2 rounded-xl bg-emerald-400 px-6 py-3.5 text-xs font-black uppercase tracking-wider text-slate-950 hover:bg-emerald-300 hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] transition-all"
           >
             <ArrowLeft className="h-4 w-4" /> Katalogga qaytish
@@ -161,7 +161,7 @@ export default function CartPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 relative z-10">
         {/* Yuqori panel */}
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-wrap items-center justify-between gap-3 mb-8">
           <button
             onClick={() => navigate(-1)}
             className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-emerald-400 transition-colors bg-slate-900/50 border border-slate-900 px-4 py-2 rounded-xl backdrop-blur-md"

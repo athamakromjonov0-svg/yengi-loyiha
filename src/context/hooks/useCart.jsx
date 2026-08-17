@@ -47,6 +47,28 @@ const useCart = (showToast) => {
   useEffect(() => { localStorage.setItem(CART_KEYS.compareList, JSON.stringify(compareList)); }, [compareList]);
   useEffect(() => { localStorage.setItem(CART_KEYS.reviews, JSON.stringify(reviews)); }, [reviews]);
 
+  // REAL VAQT: boshqa oynalardagi savat/sevimlilar/solishtirish o'zgarishlarini darhol qabul qilish
+  useEffect(() => {
+    const syncFromStorage = (e) => {
+      const { key, newValue } = e;
+      const applyArray = (setter) => {
+        if (newValue === null) { setter([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setter(parsed); } catch { /* ignore */ }
+      };
+      if (key === CART_KEYS.cart) applyArray(setCart);
+      else if (key === CART_KEYS.wishlist) applyArray(setWishlist);
+      else if (key === CART_KEYS.wishlistHistory) applyArray(setWishlistHistory);
+      else if (key === CART_KEYS.recentlyViewed) applyArray(setRecentlyViewed);
+      else if (key === CART_KEYS.compareList) applyArray(setCompareList);
+      else if (key === CART_KEYS.reviews) {
+        if (newValue === null) { setReviews({}); return; }
+        try { const parsed = JSON.parse(newValue); if (parsed && typeof parsed === 'object') setReviews(parsed); } catch { /* ignore */ }
+      }
+    };
+    window.addEventListener('storage', syncFromStorage);
+    return () => window.removeEventListener('storage', syncFromStorage);
+  }, []);
+
   const addToCart = useCallback((product, quantity = 1) => {
     setCart(prev => {
       const id = product._id || product.id;
@@ -88,29 +110,23 @@ const useCart = (showToast) => {
   }, [removeFromCart]);
 
   const toggleWishlist = useCallback((product) => {
-    setWishlist(prev => {
-      const id = product._id || product.id;
-      const exists = prev.some(i => (i._id || i.id) === id);
-      if (exists) {
-        setWishlistHistory(prev => [{ 
-          id: `WH-${Date.now()}`, 
-          productId: id, 
-          action: 'removed', 
-          time: new Date().toISOString() 
-        }, ...prev].slice(0, 50));
-        showToast("Mahsulot sevimlilardan olib tashlandi", "info");
-        return prev.filter(i => (i._id || i.id) !== id);
-      }
-      setWishlistHistory(prev => [{ 
-        id: `WH-${Date.now()}`, 
-        productId: id, 
-        action: 'added', 
-        time: new Date().toISOString() 
-      }, ...prev].slice(0, 50));
+    const id = product._id || product.id;
+    const exists = (wishlist || []).some(i => (i._id || i.id) === id);
+    const historyEntry = {
+      id: `WH-${Date.now()}`,
+      productId: id,
+      action: exists ? 'removed' : 'added',
+      time: new Date().toISOString(),
+    };
+    setWishlistHistory(prev => [historyEntry, ...prev].slice(0, 50));
+    if (exists) {
+      showToast("Mahsulot sevimlilardan olib tashlandi", "info");
+      setWishlist(prev => prev.filter(i => (i._id || i.id) !== id));
+    } else {
       showToast("Mahsulot sevimlilarga qo'shildi!", "success");
-      return [...prev, product];
-    });
-  }, [showToast]);
+      setWishlist(prev => [...prev, product]);
+    }
+  }, [wishlist, showToast]);
 
   const clearWishlist = useCallback(() => {
     setWishlist([]);

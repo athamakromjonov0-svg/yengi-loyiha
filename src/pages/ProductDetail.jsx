@@ -276,7 +276,7 @@ export default function ProductDetail() {
         <nav className="flex items-center gap-2 text-[10px] font-mono text-slate-500 mb-6">
           <Link to="/" className="hover:text-emerald-400 transition-colors">Bosh sahifa</Link>
           <ChevronRight className="h-3 w-3" />
-          <Link to="/" className="hover:text-emerald-400 transition-colors">Katalog</Link>
+          <Link to="/katalog" className="hover:text-emerald-400 transition-colors">Katalog</Link>
           <ChevronRight className="h-3 w-3" />
           <Link 
             to={`/kategoriya/${encodeURIComponent(String(typeof product.category === 'object' ? product.category.name : (product.category || 'GENERAL')).toLowerCase())}`}
@@ -777,7 +777,7 @@ export default function ProductDetail() {
                 O'xshash <span className="text-emerald-400">Mahsulotlar</span>
               </h2>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
               {relatedProducts.map((related) => (
                 <ProductCard key={related._id || related.id} product={related} />
               ))}

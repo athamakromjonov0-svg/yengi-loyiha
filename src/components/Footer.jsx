@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { 
+import { useState } from 'react';import {
   ShoppingBag, 
   Github, 
   Globe, 
@@ -12,7 +11,14 @@ import {
   MapPin, 
   Instagram, 
   Twitter, 
-  Cpu 
+  Cpu,
+  Truck,
+  CreditCard,
+  RotateCcw,
+  HelpCircle,
+  Newspaper,
+  Coins,
+  Headset
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
@@ -41,7 +47,7 @@ export default function Footer() {
       return;
     }
 
-    showToast("VORTEX bülteniga muvaffaqiyatli obuna bo'ldingiz!", "success");
+    showToast("Grand Decor yangiliklariga muvaffaqiyatli obuna bo'ldingiz!", "success");
     setEmail('');
   };
 
@@ -88,7 +94,7 @@ export default function Footer() {
 
       {/* 2-QISM: ASOSIY MATRITSA LINKLARI */}
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8 mb-12">
           
           {/* Blok 1: Brend va Maqsad */}
           <div className="space-y-4 md:col-span-2">
@@ -97,7 +103,7 @@ export default function Footer() {
                 <ShoppingBag className="h-4 w-4" />
               </div>
               <span className="text-lg font-black tracking-widest text-white uppercase">
-                VORTEX<span className="text-emerald-400 font-normal">.uz</span>
+                GRAND<span className="text-amber-400 font-normal">DECOR</span>
               </span>
             </div>
             <p className="text-xs text-slate-500 leading-relaxed font-light max-w-sm">
@@ -112,7 +118,7 @@ export default function Footer() {
           {/* Blok 2: Do'kon Navigatsiyasi */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 border-l-2 border-emerald-400 pl-2">
-              Tizim Xaritasi
+              Do'kon
             </h4>
             <ul className="space-y-2.5 text-xs font-normal">
               <li>
@@ -121,19 +127,68 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/" className="hover:text-emerald-400 transition-colors duration-200">
-                  Mahsulotlar Katalogi
+                <Link to="/katalog" className="hover:text-emerald-400 transition-colors duration-200">
+                  Barcha mahsulotlar
                 </Link>
               </li>
               <li>
-                <Link to="/login" className="hover:text-emerald-400 transition-colors duration-200">
-                  Root Avtorizatsiya
+                <Link to="/yangi-kelganlar" className="hover:text-emerald-400 transition-colors duration-200">
+                  Yangi kelganlar
                 </Link>
               </li>
               <li>
-                <a href="#about" className="hover:text-emerald-400 transition-colors duration-200">
-                  Biz Haqimizda
-                </a>
+                <Link to="/chegirmalar" className="hover:text-emerald-400 transition-colors duration-200">
+                  Chegirmalar
+                </Link>
+              </li>
+              <li>
+                <Link to="/buyurtmalarim" className="hover:text-emerald-400 transition-colors duration-200">
+                  Buyurtmalarim
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Blok 2.5: Xizmatlar */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 border-l-2 border-emerald-400 pl-2">
+              Xizmatlar
+            </h4>
+            <ul className="space-y-2.5 text-xs font-normal">
+              <li>
+                <Link to="/yetkazib-berish" className="hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1.5">
+                  <Truck className="h-3 w-3 text-emerald-500" /> Yetkazib berish
+                </Link>
+              </li>
+              <li>
+                <Link to="/tolov-usullari" className="hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1.5">
+                  <CreditCard className="h-3 w-3 text-emerald-500" /> To'lov usullari
+                </Link>
+              </li>
+              <li>
+                <Link to="/qaytarish" className="hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1.5">
+                  <RotateCcw className="h-3 w-3 text-emerald-500" /> Qaytarish
+                </Link>
+              </li>
+              <li>
+                <Link to="/bonus-dasturi" className="hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1.5">
+                  <Coins className="h-3 w-3 text-emerald-500" /> Bonus dasturi
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1.5">
+                  <HelpCircle className="h-3 w-3 text-emerald-500" /> FAQ
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1.5">
+                  <Newspaper className="h-3 w-3 text-emerald-500" /> Blog / Yangiliklar
+                </Link>
+              </li>
+              <li>
+                <Link to="/aloqa" className="hover:text-emerald-400 transition-colors duration-200 flex items-center gap-1.5">
+                  <Headset className="h-3 w-3 text-emerald-500" /> Aloqa
+                </Link>
               </li>
             </ul>
           </div>
@@ -150,7 +205,7 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2">
                 <Mail className="h-3.5 w-3.5 text-emerald-400 shrink-0" /> 
-                <span className="hover:text-white transition-colors">info@vortex.uz</span>
+                <span className="hover:text-white transition-colors">info@granddecor.uz</span>
               </li>
               <li className="flex items-start gap-2 text-slate-500">
                 <MapPin className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
@@ -162,17 +217,23 @@ export default function Footer() {
           {/* Blok 4: Huquqiy va Xavfsizlik Himoyasi */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 border-l-2 border-emerald-400 pl-2">
-              Kiber Xavfsizlik
+              Huquqiy hujjatlar
             </h4>
             <ul className="space-y-2.5 text-xs">
-              <li className="flex items-center gap-2 text-slate-500 hover:text-slate-400 transition-colors cursor-pointer">
-                <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" /> Maxfiylik Siyosati
+              <li>
+                <Link to="/maxfiylik" className="flex items-center gap-2 text-slate-500 hover:text-emerald-400 transition-colors">
+                  <ShieldCheck className="h-3.5 w-3.5 text-emerald-500" /> Maxfiylik Siyosati
+                </Link>
               </li>
-              <li className="flex items-center gap-2 text-slate-500 hover:text-slate-400 transition-colors cursor-pointer">
-                <FileText className="h-3.5 w-3.5 text-emerald-500" /> Foydalanish Shartlari
+              <li>
+                <Link to="/shartlar" className="flex items-center gap-2 text-slate-500 hover:text-emerald-400 transition-colors">
+                  <FileText className="h-3.5 w-3.5 text-emerald-500" /> Foydalanish Shartlari
+                </Link>
               </li>
-              <li className="flex items-center gap-2 text-slate-500 hover:text-slate-400 transition-colors cursor-pointer">
-                <Globe className="h-3.5 w-3.5 text-emerald-500" /> Ommaviy Oferta
+              <li>
+                <Link to="/ommaviy-oferta" className="flex items-center gap-2 text-slate-500 hover:text-emerald-400 transition-colors">
+                  <Globe className="h-3.5 w-3.5 text-emerald-500" /> Ommaviy Oferta
+                </Link>
               </li>
             </ul>
           </div>
@@ -182,9 +243,9 @@ export default function Footer() {
         {/* 3-QISM: TERMINAL PASTKI METRIKALARI */}
         <div className="border-t border-slate-900/80 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-600">
           <div className="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
-            <p>&copy; {currentYear} VORTEX.uz. Barcha huquqlar qat'iy himoyalangan.</p>
+            <p>&copy; {currentYear} Grand Decor. Barcha huquqlar qat'iy himoyalangan.</p>
             <span className="hidden sm:inline text-slate-800">|</span>
-            <p className="text-[10px] font-mono tracking-widest text-slate-700">VERSION 2.0.26_PROD</p>
+            <p className="text-[10px] font-mono tracking-widest text-slate-700">PREMIUM EDITION — 2.0.26</p>
           </div>
           
           {/* Ijtimoiy tarmoq kiber-tugmalari */}

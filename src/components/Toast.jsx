@@ -46,7 +46,7 @@ export default function Toast() {
       icon: <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />,
       borderColor: 'border-emerald-500/20 shadow-emerald-950/20',
       progressBg: 'bg-emerald-400',
-      glow: 'shadow-[0_0_30px_rgba(16,185,129,0.08)]',
+      glow: 'shadow-[0_0_30px_rgba(255,193,7,0.12)]',
       title: "SYSTEM_SUCCESS"
     },
     error: {
@@ -67,7 +67,7 @@ export default function Toast() {
       icon: <Info className="h-4 w-4 text-blue-400 shrink-0" />,
       borderColor: 'border-blue-500/20 shadow-blue-950/20',
       progressBg: 'bg-blue-400',
-      glow: 'shadow-[0_0_30px_rgba(59,130,246,0.08)]',
+      glow: 'shadow-[0_0_30px_rgba(255,193,7,0.12)]',
       title: "CYBER_INFO"
     }
   };
@@ -76,7 +76,7 @@ export default function Toast() {
 
   return (
     <div 
-      className={`fixed bottom-6 right-6 z-[100] flex flex-col overflow-hidden rounded-xl border bg-slate-950/95 backdrop-blur-xl text-sm font-medium text-white shadow-2xl max-w-sm w-full md:w-80 select-none transition-all duration-300 ease-in-out ${
+      className={`fixed bottom-6 right-6 left-6 md:left-auto z-[100] flex flex-col overflow-hidden rounded-xl border bg-slate-950/95 backdrop-blur-xl text-sm font-medium text-white shadow-2xl max-w-sm w-full md:w-80 select-none transition-all duration-300 ease-in-out ${
         isVisible 
           ? 'opacity-100 translate-y-0 scale-100' 
           : 'opacity-0 translate-y-2 scale-95'

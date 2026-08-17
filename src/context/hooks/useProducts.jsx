@@ -1,12 +1,56 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 
 const BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
+// Lokal zaxira kalitlari — API mavjud bo'lmaganda ma'lumotlar yo'qolmaydi
+const PRODUCTS_KEY = 'vortex_products_local';
+const CATEGORIES_KEY = 'vortex_categories_local';
+
+const loadLocal = (key) => {
+  try { return JSON.parse(localStorage.getItem(key)); }
+  catch { return null; }
+};
+
+const saveLocal = (key, value) => {
+  try { localStorage.setItem(key, JSON.stringify(value)); }
+  catch { /* localStorage to'la bo'lishi mumkin */ }
+};
+
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80';
+
+const normalizeImage = (image) => {
+  if (!image) return FALLBACK_IMAGE;
+  if (String(image).startsWith('http')) return image;
+  return `${BASE}${image}`;
+};
+
 const useProducts = (showToast) => {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [products, setProducts] = useState(() => loadLocal(PRODUCTS_KEY) || []);
+  const [categories, setCategories] = useState(() => loadLocal(CATEGORIES_KEY) || []);
   const [loading, setLoading] = useState(true);
+
+  // Server mavjudligini kuzatish — real vaqtda yangilash uchun
+  const serverAvailable = useRef(false);
+
+  // Har qanday o'zgarishda localStorage'ga yozamiz (offline himoya)
+  useEffect(() => { saveLocal(PRODUCTS_KEY, products); }, [products]);
+  useEffect(() => { saveLocal(CATEGORIES_KEY, categories); }, [categories]);
+
+  // REAL VAQT: boshqa oynalar (admin panel / do'kon) o'zgarishlarini darhol qabul qilish
+  useEffect(() => {
+    const syncFromStorage = (e) => {
+      if (e.key === PRODUCTS_KEY) {
+        if (e.newValue === null) { setProducts([]); return; }
+        try { setProducts(JSON.parse(e.newValue)); } catch { /* ignore */ }
+      } else if (e.key === CATEGORIES_KEY) {
+        if (e.newValue === null) { setCategories([]); return; }
+        try { setCategories(JSON.parse(e.newValue)); } catch { /* ignore */ }
+      }
+    };
+    window.addEventListener('storage', syncFromStorage);
+    return () => window.removeEventListener('storage', syncFromStorage);
+  }, []);
 
   const fetchProducts = useCallback(async () => {
     setLoading(true);
@@ -14,21 +58,16 @@ const useProducts = (showToast) => {
       const res = await axios.get(`${BASE}/products`);
       const data = res.data;
       const all = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
-
-      const normalized = all.map(p => {
-        let imgUrl = p.image;
-        if (!imgUrl) {
-          imgUrl = 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80';
-        } else if (!imgUrl.startsWith('http')) {
-          imgUrl = `${BASE}${imgUrl}`;
-        }
-        return { ...p, image: imgUrl };
-      });
-
+      const normalized = all.map(p => ({ ...p, image: normalizeImage(p.image) }));
       setProducts(normalized);
+      serverAvailable.current = true;
     } catch (error) {
       console.error('fetchProducts xato:', error);
-      showToast("Global tarmoqdan ma'lumot yuklashda uzilish", "error");
+      serverAvailable.current = false;
+      // Lokal zaxirada ma'lumot bor bo'lsa — u ishlatiladi (toast bermaymiz, yumshoq rejim)
+      if (!loadLocal(PRODUCTS_KEY)) {
+        showToast("Server bilan aloqa yo'q. Lokal rejimda ishlanmoqda.", "warning");
+      }
     } finally {
       setLoading(false);
     }
@@ -38,128 +77,153 @@ const useProducts = (showToast) => {
     try {
       const res = await axios.get(`${BASE}/categories`);
       const data = res.data;
-      setCategories(Array.isArray(data) ? data : []);
+      const all = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
+      if (all.length > 0) setCategories(all);
     } catch (error) {
       console.error('fetchCategories xato:', error);
     }
   }, []);
 
   useEffect(() => {
-    fetchProducts();
-    fetchCategories();
+    const t = setTimeout(() => {
+      fetchProducts();
+      fetchCategories();
+    }, 0);
+    return () => clearTimeout(t);
   }, [fetchProducts, fetchCategories]);
 
+  // REAL VAQT: server ulangan bo'lsa, katalog va kategoriyalarni davriy yangilab turamiz
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (navigator.onLine && serverAvailable.current) {
+        fetchProducts();
+        fetchCategories();
+      }
+    }, 30000);
+    return () => clearInterval(interval);
+  }, [fetchProducts, fetchCategories]);
+
+  // ---- KATEGORIYA CRUD (optimistic) ----
+
   const addCategory = useCallback(async (categoryData) => {
+    const tempId = `cat-local-${Date.now()}`;
+    const newCategory = { id: tempId, _id: tempId, ...categoryData };
+    setCategories(prev => [...prev, newCategory]);
     try {
       const res = await axios.post(`${BASE}/categories`, categoryData);
-      const createdCategory = res.data;
-      if (createdCategory) {
-        setCategories(prev => [...prev, createdCategory]);
-        showToast("Yangi kategoriya muvaffaqiyatli qo'shildi", "success");
-        return true;
+      const created = res.data;
+      if (created) {
+        setCategories(prev => prev.map(c => (c.id === tempId || c._id === tempId) ? created : c));
       }
-      await fetchCategories();
+      showToast("Yangi kategoriya muvaffaqiyatli qo'shildi", "success");
       return true;
     } catch (error) {
-      console.error('addCategory ichidagi xato:', error.response?.data || error.message);
-      const errorMsg = error.response?.data?.message || "Kategoriya qo'shishda xatolik";
-      showToast(errorMsg, "error");
-      return false;
+      console.error('addCategory ichidagi xato:', error);
+      showToast("Serverga ulanishda xatolik — o'zgarish lokal saqlandi", "warning");
+      return true; // Lokal o'zgarish saqlanib qoladi
     }
-  }, [showToast, fetchCategories]);
+  }, [showToast]);
 
   const updateCategory = useCallback(async (id, categoryData) => {
+    setCategories(prev => prev.map(c => (c.id === id || c._id === id) ? { ...c, ...categoryData } : c));
     try {
       const res = await axios.put(`${BASE}/categories/${id}`, categoryData);
       const updated = res.data;
-      setCategories(prev => prev.map(c => c.id === id ? updated : c));
+      if (updated) {
+        setCategories(prev => prev.map(c => (c.id === id || c._id === id) ? updated : c));
+      }
       showToast("Kategoriya muvaffaqiyatli yangilandi", "success");
       return true;
     } catch (error) {
       console.error('updateCategory xato:', error);
-      showToast("Kategoriyani yangilashda xatolik", "error");
-      return false;
+      showToast("Serverga ulanishda xatolik — o'zgarish lokal saqlandi", "warning");
+      return true;
     }
   }, [showToast]);
 
   const deleteCategory = useCallback(async (id) => {
+    setCategories(prev => prev.filter(c => c.id !== id && c._id !== id));
     try {
       await axios.delete(`${BASE}/categories/${id}`);
-      setCategories(prev => prev.filter(c => c.id !== id));
       showToast("Kategoriya o'chirildi", "warning");
       return true;
     } catch (error) {
       console.error('deleteCategory xato:', error);
-      showToast("Kategoriyani o'chirishda xatolik", "error");
-      return false;
+      showToast("Serverga ulanishda xatolik — o'zgarish lokal saqlandi", "warning");
+      return true;
     }
   }, [showToast]);
 
+  // ---- MAHSULOT CRUD (optimistic) ----
+
   const addProduct = useCallback(async (product) => {
+    const tempId = `prod-local-${Date.now()}`;
+    const normalized = {
+      ...product,
+      id: product._id || product.id || tempId,
+      image: normalizeImage(product.image || product.img),
+    };
+    setProducts(prev => [...prev, normalized]);
     try {
       const res = await axios.post(`${BASE}/products`, product);
       const created = res.data;
-      const normalized = {
-        ...created,
-        image: created.image?.startsWith('http')
-          ? created.image
-          : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80',
-      };
-      setProducts(prev => [...prev, normalized]);
-      showToast(`Yangi kiber-mahsulot ma'lumotlar bazasiga qo'shildi`, "success");
+      if (created) {
+        const serverNorm = { ...created, image: normalizeImage(created.image) };
+        setProducts(prev => prev.map(p => (p.id === tempId) ? serverNorm : p));
+      }
+      showToast("Yangi mahsulot tizimga qo'shildi", "success");
       return true;
     } catch (error) {
       console.error('addProduct xato:', error);
-      showToast("Katalogga qo'shishda xatolik", "error");
-      return false;
+      showToast("Serverga ulanishda xatolik — o'zgarish lokal saqlandi", "warning");
+      return true;
     }
   }, [showToast]);
 
   const updateProduct = useCallback(async (id, updatedProduct) => {
+    setProducts(prev => prev.map(p => (p._id === id || p.id === id) ? { ...p, ...updatedProduct, image: normalizeImage(updatedProduct.image) } : p));
     try {
       const res = await axios.put(`${BASE}/products/${id}`, updatedProduct);
       const updated = res.data;
-      const normalized = {
-        ...updated,
-        image: updated.image?.startsWith('http')
-          ? updated.image
-          : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&q=80',
-      };
-      setProducts(prev => prev.map(p => (p._id === id || p.id === id) ? normalized : p));
-      showToast("Tizim o'zgarishlari muvaffaqiyatli sinxronizatsiya qilindi", "success");
+      if (updated) {
+        const serverNorm = { ...updated, image: normalizeImage(updated.image) };
+        setProducts(prev => prev.map(p => (p._id === id || p.id === id) ? serverNorm : p));
+      }
+      showToast("Mahsulot muvaffaqiyatli yangilandi", "success");
       return true;
     } catch (error) {
       console.error('updateProduct xato:', error);
-      showToast("Modifikatsiya saqlashda xatolik", "error");
-      return false;
+      showToast("Serverga ulanishda xatolik — o'zgarish lokal saqlandi", "warning");
+      return true;
     }
   }, [showToast]);
 
   const deleteProduct = useCallback(async (id) => {
+    setProducts(prev => prev.filter(p => p._id !== id && p.id !== id));
     try {
       await axios.delete(`${BASE}/products/${id}`);
-      setProducts(prev => prev.filter(p => p._id !== id && p.id !== id));
-      showToast("Mahsulot kiber-katalogdan o'chirildi", "warning");
+      showToast("Mahsulot o'chirildi", "warning");
       return true;
     } catch (error) {
       console.error('deleteProduct xato:', error);
-      showToast("O'chirish protokolida xatolik", "error");
-      return false;
+      showToast("Serverga ulanishda xatolik — o'zgarish lokal saqlandi", "warning");
+      return true;
     }
   }, [showToast]);
 
   const bulkDeleteProducts = useCallback(async (ids) => {
+    const idSet = new Set(ids);
+    setProducts(prev => prev.filter(p => !idSet.has(p._id || p.id)));
     try {
       for (const id of ids) {
         await axios.delete(`${BASE}/products/${id}`);
       }
-      setProducts(prev => prev.filter(p => !ids.includes(p._id || p.id)));
       showToast(`${ids.length} ta mahsulot o'chirildi`, "success");
       return true;
     } catch (error) {
       console.error('bulkDeleteProducts xato:', error);
-      showToast("Ommaviy o'chirishda xatolik", "error");
-      return false;
+      showToast("Serverga ulanishda xatolik — o'zgarish lokal saqlandi", "warning");
+      return true;
     }
   }, [showToast]);
 

@@ -1,9 +1,10 @@
-import React, { createContext, useContext, useMemo, useCallback } from 'react';
+import { createContext, useContext, useMemo, useCallback } from 'react';
 import useAuth from './hooks/useAuth';
 import useProducts from './hooks/useProducts';
 import useCart from './hooks/useCart';
 import useOrders from './hooks/useOrders';
 import useUI from './hooks/useUI';
+import useBlog from './hooks/useBlog';
 
 const AppContext = createContext();
 
@@ -13,6 +14,7 @@ export const AppProvider = ({ children }) => {
   const products = useProducts(ui.showToast);
   const cart = useCart(ui.showToast);
   const orders = useOrders(ui.showToast);
+  const blog = useBlog();
 
   const stats = useMemo(() => {
     const totalProducts = products.products.length;
@@ -76,6 +78,7 @@ export const AppProvider = ({ children }) => {
     ...products,
     ...cart,
     ...orders,
+    ...blog,
     stats,
     calculateItemPrice,
     calculateCartSubtotal,
@@ -83,7 +86,7 @@ export const AppProvider = ({ children }) => {
     calculateCouponDiscount,
     calculateCartTotal,
   }), [
-    ui, auth, products, cart, orders, stats,
+    ui, auth, products, cart, orders, blog, stats,
     calculateItemPrice, calculateCartSubtotal, calculateDeliveryFee,
     calculateCouponDiscount, calculateCartTotal,
   ]);
@@ -95,6 +98,8 @@ export const AppProvider = ({ children }) => {
   );
 };
 
+// Context hook — AppProvider bilan birga eksport qilish zarur (react-refresh istisno)
+// eslint-disable-next-line react-refresh/only-export-components
 export const useApp = () => {
   const context = useContext(AppContext);
   if (!context) throw new Error("useApp albatta AppProvider ichida ishlatilishi shart!");

@@ -99,6 +99,29 @@ const useUI = () => {
   useEffect(() => { localStorage.setItem(UI_KEYS.currency, currency); }, [currency]);
   useEffect(() => { localStorage.setItem(UI_KEYS.language, language); }, [language]);
 
+  // REAL VAQT: boshqa oynalardagi bildirishnoma/sozlama o'zgarishlarini darhol qabul qilish
+  useEffect(() => {
+    const syncFromStorage = (e) => {
+      const { key, newValue } = e;
+      if (key === UI_KEYS.notifications) {
+        if (newValue === null) { setNotifications([]); return; }
+        try { const parsed = JSON.parse(newValue); if (Array.isArray(parsed)) setNotifications(parsed); } catch { /* ignore */ }
+      } else if (key === UI_KEYS.notificationSettings) {
+        if (newValue === null) { setNotificationSettings(DEFAULT_NOTIFICATION_SETTINGS); return; }
+        try { setNotificationSettings(JSON.parse(newValue)); } catch { /* ignore */ }
+      } else if (key === UI_KEYS.settings) {
+        if (newValue === null) { setSettings(DEFAULT_SETTINGS); return; }
+        try { setSettings(JSON.parse(newValue)); } catch { /* ignore */ }
+      } else if (key === UI_KEYS.currency && newValue) {
+        setCurrency(newValue);
+      } else if (key === UI_KEYS.language && newValue) {
+        setLanguage(newValue);
+      }
+    };
+    window.addEventListener('storage', syncFromStorage);
+    return () => window.removeEventListener('storage', syncFromStorage);
+  }, []);
+
   useEffect(() => {
     const handleOnline = () => { setNetworkStatus('online'); showToast('Internet aloqasi tiklandi', 'success'); };
     const handleOffline = () => { setNetworkStatus('offline'); showToast('Internet aloqasi uzildi', 'error'); };

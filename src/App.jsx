@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Components
 import Navbar from './components/Navbar';
@@ -7,6 +7,7 @@ import Toast from './components/Toast';
 import Footer from './components/Footer';
 import ProtectedRoute from './components/ProtectedRoute';
 import PrivateRoute from './components/PrivateRoute';
+import SiteSidebar from './components/SiteSidebar';
 
 // Pages
 import MainWebsite from './pages/MainWebsite';
@@ -23,14 +24,35 @@ import WishlistPage from './pages/WishlistPage';
 import DiscountsPage from './pages/DiscountsPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ComparePage from './pages/ComparePage';
+import CatalogPage from './pages/CatalogPage';
+import NewArrivalsPage from './pages/NewArrivalsPage';
+import OrdersPage from './pages/OrdersPage';
+import LoyaltyPage from './pages/LoyaltyPage';
+import ContactPage from './pages/ContactPage';
+import FaqPage from './pages/FaqPage';
+import DeliveryPage from './pages/DeliveryPage';
+import PaymentPage from './pages/PaymentPage';
+import ReturnsPage from './pages/ReturnsPage';
+import BlogPage from './pages/BlogPage';
+import BlogDetailPage from './pages/BlogDetailPage';
+import LegalPage from './pages/LegalPage';
 
 function App() {
+  const location = useLocation();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  // Admin va login sahifalarida o'ng sidebar yashiriladi (o'z layoutlari bor)
+  const hideShell = location.pathname === '/login'
+    || location.pathname === '/sayt/kirish'
+    || location.pathname.startsWith('/admin');
+
   return (
     <div className="min-h-screen bg-slate-950 text-white flex flex-col select-none">
-      {/* Saytning yuqori qismi */}
-      <Navbar />
+      {/* Saytning yuqori qismi — o'ng sidebar uchun joy ajratiladi */}
+      <div className={`flex flex-col flex-1 ${hideShell ? '' : 'xl:pr-64'}`}>
+        <Navbar onToggleSidebar={() => setSidebarOpen(true)} />
 
-      <div className="flex-1">
+        <div className="flex-1">
         <Routes>
           {/* ASOSIY SAHIFA */}
           <Route path="/" element={<MainWebsite />} />
@@ -75,6 +97,42 @@ function App() {
           {/* SOLISHTIRISH SAHIFASI */}
           <Route path="/solishtirish" element={<ComparePage />} />
 
+          {/* KATALOG — BARCHA MAHSULOTLAR */}
+          <Route path="/katalog" element={<CatalogPage />} />
+
+          {/* YANGI KELGANLAR */}
+          <Route path="/yangi-kelganlar" element={<NewArrivalsPage />} />
+
+          {/* BUYURTMALARIM */}
+          <Route path="/buyurtmalarim" element={<OrdersPage />} />
+
+          {/* BONUS DASTURI */}
+          <Route path="/bonus-dasturi" element={<LoyaltyPage />} />
+
+          {/* ALOQA */}
+          <Route path="/aloqa" element={<ContactPage />} />
+
+          {/* FAQ */}
+          <Route path="/faq" element={<FaqPage />} />
+
+          {/* YETKAZIB BERISH */}
+          <Route path="/yetkazib-berish" element={<DeliveryPage />} />
+
+          {/* TO'LOV USULLARI */}
+          <Route path="/tolov-usullari" element={<PaymentPage />} />
+
+          {/* QAYTARISH */}
+          <Route path="/qaytarish" element={<ReturnsPage />} />
+
+          {/* BLOG */}
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
+
+          {/* HUQUQIY SAHIFALAR */}
+          <Route path="/maxfiylik" element={<LegalPage />} />
+          <Route path="/shartlar" element={<LegalPage />} />
+          <Route path="/ommaviy-oferta" element={<LegalPage />} />
+
           {/* ADMIN PANELI (Yopiq Route) */}
           <Route 
             path="/admin" 
@@ -88,10 +146,16 @@ function App() {
           {/* XATO SAHIFA (404) */}
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        </div>
+
+        {/* Saytning quyi qismi */}
+        <Footer />
       </div>
 
-      {/* Saytning quyi qismi */}
-      <Footer />
+      {/* O'NG TOMON SIDEBAR — barcha sahifalar */}
+      {!hideShell && (
+        <SiteSidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      )}
       
       {/* Global bildirishnomalar */}
       <Toast />

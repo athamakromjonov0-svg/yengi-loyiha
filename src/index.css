@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ============================================================
+   GRAND DECOR — QORA + OLTIN global uslub
+   ============================================================ */
+html {
+  background-color: #0d0c0a;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background-color: #0d0c0a;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Sarlavhalar uchun serif (Playfair Display) — hashamat hissi */
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* Oltin tugmalar ustidagi oq matn qoraga aylanadi (kontrast uchun) */
+[class*="bg-emerald-400"] [class*="text-white"],
+[class*="bg-emerald-500"] [class*="text-white"],
+[class*="bg-emerald-600"] [class*="text-white"],
+[class*="bg-blue-400"]   [class*="text-white"],
+[class*="bg-blue-500"]   [class*="text-white"],
+[class*="bg-rose-400"]   [class*="text-white"],
+[class*="bg-rose-500"]   [class*="text-white"],
+[class*="bg-rose-600"]   [class*="text-white"],
+[class*="bg-amber-400"]  [class*="text-white"],
+[class*="bg-amber-500"]  [class*="text-white"],
+[class*="bg-violet-500"] [class*="text-white"] {
+  color: #0d0c0a !important;
+}
+
+/* Scrollbar — qora + oltin */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #0d0c0a; }
+::-webkit-scrollbar-thumb { background: #3b362e; border-radius: 8px; border: 2px solid #0d0c0a; }
+::-webkit-scrollbar-thumb:hover { background: #ffc107; }
+
+/* Sekin, silliq o'tishlar — "qimmat" texnik his */
+* {
+  transition-duration: 300ms;
+}
+
+button, a {
+  transition-property: color, background-color, border-color, opacity, transform, box-shadow;
+}
