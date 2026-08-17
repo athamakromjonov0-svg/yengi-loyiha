@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
+import seedDb from '../../../db.json';
 
 const BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
@@ -32,6 +33,17 @@ const normalizeImage = (image) => {
   return `${BASE}${image}`;
 };
 
+// Sayt deploy qilinganda (https) va API manzili hali localhost bo'lsa —
+// server mavjud bo'la olmaydi. So'rov yubormay, db.json zaxirasini ishlatamiz.
+const isLocalApi = /^https?:\/\/(localhost|127\.0\.0\.1)/.test(BASE);
+const isDeployed = typeof window !== 'undefined' && window.location.protocol === 'https:';
+const useSeedMode = isLocalApi && isDeployed;
+
+// db.json'dagi zaxira ma'lumotlar — server bo'lmasa ham do'kon to'liq ishlaydi
+const seedProducts = (Array.isArray(seedDb.products) ? seedDb.products : [])
+  .map(p => ({ ...p, image: normalizeImage(p.image) }));
+const seedCategories = Array.isArray(seedDb.categories) ? seedDb.categories : [];
+
 const useProducts = (showToast) => {
   const [products, setProducts] = useState(() => loadLocal(PRODUCTS_KEY) || []);
   const [categories, setCategories] = useState(() => loadLocal(CATEGORIES_KEY) || []);
@@ -62,6 +74,7 @@ const useProducts = (showToast) => {
   const fetchProducts = useCallback(async () => {
     setLoading(true);
     try {
+      if (useSeedMode) throw new Error('SEED_MODE');
       const res = await api.get('/products');
       const data = res.data;
       const all = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
@@ -73,7 +86,18 @@ const useProducts = (showToast) => {
       serverAvailable.current = false;
       // Lokal zaxirada ma'lumot bor bo'lsa — u ishlatiladi (toast bermaymiz, yumshoq rejim)
       if (!loadLocal(PRODUCTS_KEY)) {
-        showToast("Server bilan aloqa yo'q. Lokal rejimda ishlanmoqda.", "warning");
+        if (seedProducts.length > 0) {
+          // Server yo'q va lokal ham bo'sh — db.json zaxirasini yuklaymiz
+          setProducts(seedProducts);
+          showToast(
+            useSeedMode
+              ? "Zaxira ma'lumotlar yuklandi"
+              : "Server bilan aloqa yo'q. Zaxira ma'lumotlar ko'rsatilmoqda.",
+            "warning"
+          );
+        } else {
+          showToast("Server bilan aloqa yo'q. Lokal rejimda ishlanmoqda.", "warning");
+        }
       }
     } finally {
       setLoading(false);
@@ -82,12 +106,17 @@ const useProducts = (showToast) => {
 
   const fetchCategories = useCallback(async () => {
     try {
+      if (useSeedMode) throw new Error('SEED_MODE');
       const res = await api.get('/categories');
       const data = res.data;
       const all = Array.isArray(data) ? data : (Array.isArray(data.data) ? data.data : []);
       if (all.length > 0) setCategories(all);
     } catch (error) {
       console.error('fetchCategories xato:', error);
+      // Server yo'q va kategoriyalar bo'sh bo'lsa — db.json zaxirasi
+      if (seedCategories.length > 0) {
+        setCategories(prev => (prev.length > 0 ? prev : seedCategories));
+      }
     }
   }, []);
 
