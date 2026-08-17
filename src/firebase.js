@@ -12,14 +12,17 @@ import {
 // Firebase konfiguratsiyasi
 // ⚠️ Ushbu ma'lumotlarni Firebase konsolidan olasiz:
 // console.firebase.google.com > Loyiha > Project settings > Your apps > SDK setup and configuration
+// Firebase konfiguratsiyasi
+// Env o'zgaruvchilari (VITE_FIREBASE_*) bo'lmasa — Netlify build'ida ham ishlashi
+// uchun quyidagi zaxira (fallback) qiymatlar ishlatiladi.
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || 'AIzaSyB6zuYfDrU0uUVNhUMB6HdLPOpVOQ__P3Q',
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || 'atham-f7bdb.firebaseapp.com',
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'atham-f7bdb',
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || 'atham-f7bdb.firebasestorage.app',
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '627797278068',
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || '1:627797278068:web:b95406f424295ef1068021',
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || 'G-MBKDEQ8R02',
 };
 
 // Firebase ilovasini ishga tushirish
